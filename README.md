@@ -18,7 +18,7 @@ Internal Beyond 的移动端同源版本：一个离线运行的单文件个人�
 ## ✦ 开始使用
 
 1. 下载本仓库（点击上方绿色 **Code** → **Download ZIP**）
-2. 解压后，用手机或电脑浏览器打开 `index.html`（安卓推荐 Chrome，iOS 用 Safari）
+2. 解压后，用手机或电脑浏览器打开 `index.html`（推荐 Chrome）
 3. 进入 **API** 页面，添加你的 AI API 密钥
 4. 开始使用
 
