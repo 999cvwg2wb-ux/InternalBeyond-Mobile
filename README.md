@@ -37,7 +37,7 @@ Internal Beyond 的移动端同源版本：一个离线运行的单文件个人�
 | **Blog** | 日志 / 密码日记本 / 分类管理 / AI 留言与段落批注 / 阅读视图 / 可授权 AI 写入日志；**共读间**常驻其中 |
 | **Letters** | Beyond 邮局 — 异步通信，TA 读取你的资料后写信投递，火漆一点即拆 |
 | **Memory** | 长期情感记忆库 — 情感坐标 + 自然衰减 + 按关键词截取窗口的上下文自动注入；**Auto Memory** 为每个 AI 独立维护的认知档案（六分类、三级优先） |
-| **Music** | 全屏黑胶听歌界面 — 唱臂落盘、封面糊化为背景、逐句滚动歌词（.lrc / .srt / .vtt）、播放队列；**一起听**：邀请一位 AI 共享正在播放并累计时长 |
+| **Music** | 全屏黑胶听歌界面 — 唱臂落盘、封面糊化为背景、逐句滚动歌词（.lrc / .srt / .vtt）、播放队列；**一起听**：邀请一位 AI 共享正在播放并累计时长；**网易云音乐模式**：登录自己的账号听歌单 / 红心 / 每日推荐 / 私人 FM / 听歌排行，AI 可按授权点歌、切歌单、红心、管理歌单（需自建跨域中转）；**迷你播放器**：离开听歌界面后留一枚可拖动的小唱机（封面盘 · 唱臂 · 曲名 · 歌手 · 当前歌词） |
 | **Coread** | 共读间 — 把一篇日志当一本书，选一位 AI 读到哪聊到哪；聊天落在独立的「共读 · 书名」频道里，TA 只读到你此刻这一页 |
 | **Cinema** | 观影室 — 唯一的独立桌面 APP（`apps/ib-app-cinema.js`），Desk「应用」里安装；选一段本机视频（可配字幕）与一位 AI 一起看，字幕 / 画面帧 / 留影随每句话附给 TA，弹幕、倍速、全屏 |
 | **ICode** | 你与 AI 共用的文件工作区 — 项目分组、AI 读写 / 局部改写、操作确认或自动模式、精细检索工具、DOCX / PDF / XLSX 文档生成；**GitHub 分区**：PAT 直连、仓库浏览、导入工作区、一键推回 |
@@ -130,6 +130,8 @@ Blog 是创作空间：日记、剧本、分类、搜索、阅读进度，密码
 ### Music — 音乐
 
 黑胶唱片带唱臂，封面印在盘芯并糊化为背景，左侧大字歌名与逐句滚动歌词，五键控制与播放队列。「一起听」邀请一位 AI 共享正在播放：头像对、实时累计时长，TA 会在对话中知道你正与 TA 听这首歌。
+
+网易云音乐模式：顶栏右上角「＋」选「网易云音乐」，登录自己的账号（扫码 / 手机号 / 粘贴 MUSIC_U），歌单、红心、每日推荐、私人 FM、听歌排行与搜歌都能直接载入队列，歌词按网易云逐句歌词显示；VIP 曲目能不能完整播放取决于这个账号。浏览器不能直接访问网易云接口，需要经过你自己部署的 Cloudflare Worker（GUIDE → DIY 提供可直接粘贴的代码）：默认沿用 DIY → MCP 卡「跨域中转」里那条，也可以在网易云登录页单独填一条；账号只存本机、请求只经你自己的中转。开启 Presence「允许 AI 控制播放器」后，网易云页底部可逐项开放 AI 点歌、切歌单、红心、加进 / 移出歌单、新建歌单、改简介。迷你播放器：歌名右侧爱心旁的小图标，打开后离开听歌界面时屏幕上留一枚液态玻璃小唱机（有封面就整盘贴封面转，唱臂落盘），显示曲名、歌手与当前一句歌词，点它回到听歌界面，按住可拖到任意位置。手机不给力时开 Visual 的「减少动效」，听歌界面整套走轻量路径。
 
 ### Coread — 共读间
 
@@ -245,7 +247,7 @@ Connect your own AI API keys to unlock all interactive features. Supports Claude
 - **Calendar** — Anniversaries, birthdays, plans and reminders; AIs read upcoming items, mention them naturally, leave notes, and can be authorized to write entries.
 - **Blog / Letters** — Journal with AI comments & annotations plus a password diary (AIs can be authorized to write entries); asynchronous AI correspondence with wax-sealed envelopes.
 - **Memory / Auto Memory** — Long-term emotional memory with decay and context injection; per-AI autonomous dossiers about you.
-- **Music** — Vinyl-style fullscreen player with scrolling lyrics and "Listen Together" pairing with an AI.
+- **Music** — Vinyl-style fullscreen player with scrolling lyrics and "Listen Together" pairing with an AI; NetEase Cloud Music mode (log into your own account for playlists, likes, daily picks, personal FM and listening charts, with per-action AI control — needs your own CORS relay Worker); a mini floating player that stays on screen after you leave the music view.
 - **Coread / Cinema** — Read a journal entry as a book with an AI who only sees the page you are on; watch a local video (with subtitles) together, with frames, captions and snapshots sent alongside each message, bullet comments and fullscreen.
 - **ICode** — Shared file workspace with AI read/write, step confirmation, fine-grained search, DOCX/PDF/XLSX generation, and a built-in GitHub bridge (browse, import, push back).
 - **Visual / DIY / API / Data** — Full visual customization with 4 preset slots; external HTTP tools & MCP servers; multi-endpoint API center with Presence scheduling; one-tap JSON backup interchangeable with desktop.
