@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <!-- v201-p 修订单（与手机端同轮同文；缓存链、协议常量、发送组装一字未动）：①记忆注入行三端同文升级——标题 · 概述 · 正文摘录：正文整条装得下就整条给；装不下则找命中当前消息关键词的那一段，以命中点为中心裁一窗、前后退到句末、两头缀「……」；没命中退回从头截。只影响自动注入，检索记忆库指令不走这里。②收藏夹纸条与名片改轻透明液态玻璃，减少动效时回到实色；名片去掉个性签名，只留「昵称's」。③直接双击打开 index（file://）：fetch 读不到 apps/catalog.json 时改用 <script> 读 apps/catalog.js，观影室等 APP 不用起本地服务器也能装。IB_VER 联动 v201-p。 -->
 <!-- v190-p 修订单（与手机端同轮同文；缓存链、协议常量、发送组装一字未动）：①收藏夹：Chat 抽屉新增「收藏夹」入口（话题频道之上），长按消息多一项「收藏」，语音消息发出即自动收进；存 apiSettings（id fav_<msgId>，app:'fav'）随备份往返、电脑端不读不坏；收藏页＝ib-ov2 面板，便笺墙（虚线时间线、纸胶带、当前对话 / 全部两页签），每张标来源日期时间、发言人、主线 / 频道名，长文折叠可展开，语音可回听，× 移除。②语音条精致化：胶囊底更轻、播放钮成圆、我方语音带主题色，文字稿与译文 / 正文之间虚线分隔。③Visual 新增「Bind — 更多绑定」卡：导航抽屉不透明度、聊天输入条不透明度、卡片描边强度、站点背景模糊。④Display 新增「聊天正文字体：跟随全站 / 衬线」，只换气泡正文。⑤API 页下栏「工具」改名「多模态设置」。⑥写入 Blog 卡片副标显示日志标题（执行后《标题》 → 分类，执行前为标签里的 title）。⑦相遇纪念日进 Presence：核对确认 _hbNoteTry → buildCalBlock → loadCal 已并入 _meetMilestonesM，开了「相遇纪念日提醒」的 TA 在当天与前后一天被「主动提醒日程」拾取（网页版靠前台定时器与网页通知，退后台由系统决定），零改动。IB_VER 联动 v190-p。 -->
 <!-- v187-p 修订单（本轮只做这一件事，缓存链、协议常量、发送组装一字未动）：Blog 写入——进阶指令新增「启用 Blog 写入」：<ws_blog_write title>Markdown</ws_blog_write> 落进 Blog 里以 TA 名字命名的分类、署它的名（aiWritten / author / authorName）；每条回复最多 1 篇；这类日志不进 Blog 列表注入、不进任何提示缓存，只有用户按标题点名且开了日志检索才会被读到，回执标明作者；提示词三端同文；开关切换后重建一次提示缓存。IB_VER 对齐 v187-p。 -->
@@ -1538,6 +1539,47 @@ body.theme-infernal .pw-bar{background:linear-gradient(180deg,rgba(255,255,255,0
 .pwl-d{flex:none;font-family:var(--disp);font-weight:300;font-size:0.62rem;letter-spacing:0.06em;color:var(--tx3)}
 .pwl-x{flex:none;width:26px;height:26px;border-radius:50%;border:none;background:none;display:flex;align-items:center;justify-content:center;color:var(--tx3);cursor:pointer}
 .pwl-x svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round}
+/* v204-p：网易云音乐模式（MUSIC「+」音源 sheet 与网易云 sheet） */
+.ncm-ico{width:38px;height:38px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;background:var(--soft);border:1px solid var(--line);color:var(--tx2)}.ncm-ico svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+#sheet-masrc .mate-row .ncm-chk{margin-left:auto;width:8px;height:8px;border-radius:50%;background:var(--acc);opacity:0;flex:none}#sheet-masrc .mate-row.on .ncm-chk{opacity:1}#sheet-masrc .mate-row.on b{color:var(--acc)}
+.ncm-acc{display:flex;align-items:center;gap:12px;padding:4px 4px 14px;border-bottom:1px solid var(--line);margin-bottom:12px}.ncm-acc .ma-ava{width:44px;height:44px;background-size:cover;background-position:center;font-size:1rem}.ncm-accm{flex:1;min-width:0}.ncm-accm b{display:block;font-size:0.9rem;color:var(--tx);font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ncm-accm small{display:block;font-size:0.64rem;color:var(--tx3);margin-top:3px;letter-spacing:0.04em}.ncm-out{padding:6px 14px;font-size:0.72rem;letter-spacing:0.06em;color:var(--tx3)}
+.ncm-spill{margin:2px 0 6px}#ncm-res:empty{display:none}#ncm-res{margin-bottom:4px}
+.ncm-row .ma-ava.ncm-cv{width:40px;height:40px;border-radius:8px;border-color:rgba(255,255,255,0.4);background-size:cover;background-position:center;font-family:var(--disp);font-size:0.6rem;letter-spacing:0.08em;color:var(--tx2)}.ncm-row .ma-ava.ncm-cv.sys{background:var(--soft)}
+.ncm-rm{flex:1;min-width:0}.ncm-rm b{display:block;font-size:0.86rem;color:var(--tx);font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ncm-rm small{display:block;font-size:0.64rem;color:var(--tx3);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ncm-row.on b{color:var(--acc)}.ncm-row.busy{opacity:0.5;pointer-events:none}
+.ncm-vip{font-style:normal;font-family:var(--disp);font-size:0.56rem;letter-spacing:0.08em;color:var(--acc);border:1px solid var(--acc);border-radius:4px;padding:0 3px;margin-left:4px;vertical-align:middle}
+.ncm-sl{margin:18px 4px 8px}.ncm-tog{padding-top:9px}.ncm-refresh{display:block;margin:10px auto 0;padding:7px 18px;font-size:0.72rem;color:var(--tx3)}
+.ncm-tabs{display:flex;gap:8px;margin-bottom:14px}.ncm-tabs .btn{flex:1;text-align:center;padding:8px 6px;font-size:0.74rem;letter-spacing:0.08em;color:var(--tx3)}.ncm-tabs .btn.on{color:var(--acc);border-color:var(--acc);background:rgba(114,168,216,0.12)}
+.ncm-qr{display:flex;justify-content:center;padding:6px 0 10px}.ncm-qr canvas{width:200px;height:200px;border-radius:12px;image-rendering:pixelated;border:1px solid var(--line)}
+.ncm-st{text-align:center;font-size:0.78rem;color:var(--tx2);margin:2px 0 4px;cursor:pointer}
+.ncm-inl{display:flex;gap:8px}.f-group .ncm-inl input{flex:1;min-width:0}.f-group .ncm-inl .btn{flex:none;white-space:nowrap;padding:0 14px;font-size:0.72rem;letter-spacing:0.04em}
+.pwl-hd{padding:4px 4px 8px;font-family:var(--disp);font-weight:300;font-size:0.62rem;letter-spacing:0.16em;color:var(--tx3)}.pwl-ar{font-style:normal;font-size:0.72rem;color:var(--tx3);margin-left:6px}
+/* 迷你播放器悬浮窗 + MUSIC 爱心新款 */
+#ma-mate svg{stroke-width:1.5}#ma-mate.on{color:var(--acc)}#ma-mate.on svg{fill:currentColor;fill-opacity:0.28;stroke:currentColor}
+#ma-minipw.on{color:var(--acc)}
+#mini-pw{position:fixed;left:8px;bottom:calc(92px + var(--sab,0px));z-index:40;display:flex;align-items:center;gap:9px;width:182px;box-sizing:border-box;padding:8px 10px 8px 8px;border-radius:18px;cursor:pointer;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none}
+#mini-pw[hidden]{display:none}
+#mini-pw.glass{background:rgba(255,255,255,0.46);border:1px solid rgba(255,255,255,0.72);-webkit-backdrop-filter:blur(18px) saturate(1.5);backdrop-filter:blur(18px) saturate(1.5);box-shadow:0 8px 22px rgba(40,60,100,0.13),inset 0 1px 0 rgba(255,255,255,0.85)}
+body.theme-infernal #mini-pw.glass{background:rgba(23,35,59,0.56);border-color:rgba(165,190,235,0.22);box-shadow:0 8px 22px rgba(0,0,0,0.38),inset 0 1px 0 rgba(200,220,255,0.08)}
+body.ib-reduce #mini-pw.glass{background:#f5f8fc;-webkit-backdrop-filter:none;backdrop-filter:none}body.ib-reduce.theme-infernal #mini-pw.glass{background:#1b2740}
+.mpw-turn{flex:none;position:relative;width:46px;height:46px}
+.mpw-disc{position:absolute;inset:2px;border-radius:50%;overflow:hidden;background:conic-gradient(from 208deg at 50% 50%,rgba(255,255,255,0.14) 0deg,rgba(255,255,255,0) 30deg,rgba(255,255,255,0) 150deg,rgba(255,255,255,0.1) 180deg,rgba(255,255,255,0) 210deg,rgba(255,255,255,0) 330deg,rgba(255,255,255,0.14) 360deg),repeating-radial-gradient(circle at 50% 50%,rgba(255,255,255,0.06) 0 1px,rgba(0,0,0,0.42) 1px 2.5px),radial-gradient(circle at 50% 50%,#14171f 0 30%,#080a0e 30% 32%,#161a22 32% 90%,#0b0d12 90% 95%,#232833 95% 100%),#0b0d12;box-shadow:0 3px 8px rgba(6,12,28,0.45),inset 0 0 0 1px rgba(255,255,255,0.08);animation:mpw-spin 4.2s linear infinite;animation-play-state:paused}
+.mpw-disc b{position:absolute;inset:5px;border-radius:50%;background:center/cover no-repeat;display:none;box-shadow:0 0 0 1px rgba(0,0,0,0.5),inset 0 0 0 1px rgba(255,255,255,0.18)}#mini-pw.cov .mpw-disc b{display:block}/* 有封面＝整盘贴封面转，只留一圈黑胶纹 */
+.mpw-disc i{position:absolute;left:50%;top:50%;width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;background:var(--acc);box-shadow:0 0 0 1.5px rgba(255,255,255,0.55),0 0 0 3px rgba(0,0,0,0.35)}
+.mpw-arm{position:absolute;top:-2px;right:-3px;width:18px;height:24px;transform-origin:14px 4px;transform:rotate(-30deg);transition:transform .5s cubic-bezier(0.3,0.85,0.3,1);pointer-events:none}
+.mpw-arm::before{content:'';position:absolute;right:0;top:0;width:8px;height:8px;border-radius:50%;background:linear-gradient(150deg,#fefefe,#c7d1de);box-shadow:0 1px 3px rgba(8,18,40,0.42)}
+.mpw-arm span{position:absolute;right:2.5px;top:5px;width:2px;height:16px;border-radius:2px;background:linear-gradient(90deg,#f5f8fc,#c2ccd9);box-shadow:0 1px 2px rgba(8,18,40,0.38);transform:rotate(16deg);transform-origin:top center}
+.mpw-arm span::after{content:'';position:absolute;left:50%;bottom:-5px;transform:translateX(-50%);width:5px;height:7px;border-radius:1.5px;background:linear-gradient(160deg,#ffffff,#ccd6e2);box-shadow:0 1px 3px rgba(8,18,40,0.42)}
+#mini-pw.playing .mpw-disc{animation-play-state:running}#mini-pw.playing .mpw-arm{transform:rotate(-4deg)}
+#mini-pw{touch-action:none}#mini-pw.drag{transition:none;box-shadow:0 14px 34px rgba(40,60,100,0.22)}
+body.ib-reduce .mpw-disc{animation:none}body.ib-reduce .mpw-arm{transition:none}
+@keyframes mpw-spin{to{transform:rotate(360deg)}}
+
+body.ib-reduce #music-app .ma-cvbg{filter:none;opacity:0.22}body.ib-reduce #music-app .ma-head,body.ib-reduce #music-app .ma-duo-in{-webkit-backdrop-filter:none;backdrop-filter:none}body.ib-reduce #music-app.playing .ma-vinyl{animation:none}body.ib-reduce #music-app .ma-arm{transition:none}body.ib-reduce #music-app .ma-beat{animation:none}
+.mpw-m{flex:1;min-width:0}
+.mpw-t{font-family:var(--sys);font-weight:600;font-size:0.76rem;line-height:1.25;color:var(--tx);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mpw-s{margin-top:1px;font-size:0.6rem;letter-spacing:0.04em;color:var(--tx3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mpw-l{margin-top:3px;font-size:0.64rem;line-height:1.3;color:var(--tx2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-height:1em}.mpw-l.none{display:none}
 
 .uvprev{position:relative;height:120px;border-radius:24px;overflow:hidden;margin-bottom:14px;
   background:var(--bgimg) center/cover no-repeat;border:1px solid var(--panel-line);
@@ -2119,6 +2161,10 @@ raf=requestAnimationFrame(frame);
         <p><strong>系统与辅助</strong>：API 页 → Presence（定时推送）可设固定间隔或时段内随机触发，并可设勿扰时段（时段内暂停定时推送与自动发动态）。通知设置已并入 API 页 → Presence 下方：退到后台时按分档弹系统通知（需浏览器授权），停留在应用内则由顶部横幅提醒接手；每位 AI 是否参与定时推送，可在其配置页「主动消息」单独关闭。Home 设置 → Space → Display 提供竖屏方向锁与触控目标放大；Visual → Display 卡的「聊天正文字体」可把气泡正文换成衬线（卡片、语音条与时间不换）。<!-- v101-m 任务3：整墙分段重排 --></p>
         <p><strong>音乐（Desk 图标）</strong>：打开全屏听歌界面。黑胶唱片带唱臂——播放时唱臂落盘、唱片旋转，歌曲封面印在盘芯上并糊化为背景；左侧为大字歌名与逐句滚动歌词（当前歌曲页导入单个 .lrc / .srt / .vtt 会直接绑定；批量导入按文件名匹配）；下方是可拖进度条与五键控制（末位为播放队列），顶栏右上角「＋」添加音乐或歌词。</p>
         <p><strong>一起听</strong>：歌名右侧的小按钮。未配对时点它邀请一位 AI，选定后自动开启共享正在播放；配对后界面上方出现你和 TA 的头像对，下方实时累计一起听的时长，点头像对可「去聊天」或「结束一起听」。TA 会在对话中被告知你正与 TA 一起听这首歌，聊天里的听歌卡片也能一键跳回此界面。</p>
+        <p><strong>网易云音乐模式</strong>：顶栏右上角「＋」现在是音源选择：本地音乐（本机文件，原来的样子）/ 网易云音乐。浏览器不能直接访问网易云接口，所以要经过你自己部署的跨域中转：默认沿用 DIY → MCP 卡「跨域中转」填的那条（Worker 代码要换成 GUIDE → DIY 里的新版，白名单里加 music.163.com），也可以在网易云登录页单独填一条只给网易云用；网易云和 MCP 共用一条完全没问题，填过的地址不用重填。之后登录自己的账号——扫码（用另一台设备上的网易云 App 扫）、手机号（密码或短信验证码）、或粘贴电脑浏览器里的 MUSIC_U——歌单、红心、每日推荐、私人 FM、听歌排行（本周 / 全部）与搜歌都能直接载入队列播放；VIP 曲目能不能完整播放取决于这个账号，播放地址取不到时会退回网易云的公开直链（只有普通音质）。歌词按网易云的逐句歌词显示，「一起听」与「正在播放注入」照常。底栏末位的播放队列在此模式下显示网易云队列，「网易云歌单」按钮回到歌单页。账号只存在本机，不进备份、不发给任何 AI；请求经你自己的中转发往网易云，中转看得到 Cookie，务必只用自己部署的。两档各自独立，切换时停止当前播放，「＋」里选本地音乐即回到本地曲库。</p>
+        <p><strong>网易云 · AI 控制</strong>：Presence「允许 AI 控制播放器」开着时，网易云页底部的「AI 控制」块可逐项开放：点歌（搜索并播放）、切换歌单 / 每日推荐 / 私人 FM / 听歌排行、红心、加进 · 移出歌单、新建歌单、改歌单简介；默认只开前两项，写入类操作会真实改动你的网易云账号。开着的项写进 TA 的系统能力行，切换后 TA 的下一条消息重建一次提示缓存；聊到音乐时你的歌单名单会随消息附给 TA。</p>
+        <p><strong>迷你播放器</strong>：歌名右侧「一起听」爱心旁的小图标。打开后离开 MUSIC 界面，屏幕上会留一枚液态玻璃小唱机——有封面就整盘贴着封面转、唱臂落盘，旁边是曲名、歌手和当前一句歌词；点它回到 MUSIC，按住可以拖到屏幕任意位置（位置记住）。MUSIC 打开、锁屏中或没有曲目时自动收起；开了「减少动效」它就是不透明的、唱片不转。开关记住，下次打开还在。</p>
+        <p><strong>手机不给力时</strong>：开 Visual 里的「减少动效」，听歌界面会整套走轻量路径——封面大模糊背景改静态淡色、玻璃条不再实时模糊、黑胶不转、唱臂与心跳不动，迷你播放器也不透明；网易云的播放队列超过 60 首时分批画出来，不会一次卡住。</p>
         <p><strong>日历 App（Desk 图标）</strong>：照桌面端 Calendar 悬浮窗的日程页设计。顶部是你与 AI 的双人名片：两枚头像并排、由一条单色连线牵起（线条绕成一笔画的爱心；流光沿「头像环 → 爱心 → 另一枚头像环」的闭合轨道巡回，头尾相接），下方依次是「你 & TA」、Together for N days、相遇纪念日与周年倒计时；‹ › 切换本站与每位 AI（与本站那张右侧是站点图标）；下方日程按「今天 / 7 天内 / 之后 / 已过去」分组成卡片列表：每行左侧「日期叶」显示下一次发生的月 / 日并按类型着色（计划蓝、纪念与生日粉、备忘灰、相遇金），标题行右侧是倒计时胶囊，第二行以小胶囊列出类型 / 日期 / 重复 / 提醒 / 时间，备注单独成行；右上「＋」新建、点行编辑、点 ✕ 删除，与桌面月历挂件和 AI 的日历标签共用同一份数据。</p><p><strong>底部分区栏</strong>：每个页面各自不同，用于在该页面内部切换分区。Home 页在 Desk 桌面、Space 名片与 Circle AI 名片三个面板间切换，设置从第四格进入。</p>
       </div>
       <div class="g-sec"><!-- v89-m 任务3：触屏手势总表（逐条对应代码内真实存在的手势，iOS / Android 通用） -->
@@ -2301,7 +2347,7 @@ raf=requestAnimationFrame(frame);
       <div class="g-sec"><div class="g-name">Coread — 共读间</div>
         <p>常驻在 Blog 里，不用安装：Blog 下栏「共读间」或 Desk 图标进入（都进 Blog 页内），关掉回到来的地方。一篇日志＝一本书，Markdown 照 Blog 的样子渲染分页；选一位 TA，读到哪聊到哪。聊天落在这位 TA 名下一条「共读 · 书名」话题频道里，不进主对话，频道里不注入工具与协议；你第一次开口时频道里落一道「共读」分隔线，退出再落一道「共读结束」，只翻书不聊什么都不留。</p>
         <p><strong>TA 读到什么</strong>：每句话只随附你此刻这一页的原文（长度可设）与前文梗概（每读若干字压一次，可关），TA 读不到后面的页，它申请整篇也会被拒。<strong>设置</strong>（阅读页右上「⋯」）：字号 / 行距 / 页边距 / 字体 / 纸色，翻页方式与震动，进度显示，TA 主动开口（默认关），附给 TA 的原文长度，前文梗概，回话时展开纸条区，纸条区，阅读时屏幕常亮。「目录」看章节（行首「第X章」或 Markdown 标题）与书签。TA 回复期间纸条区显示「正在想…」，开了思考链的模型回完后可点开 Thought process。</p>
-        <p><strong>存什么</strong>：书从 Blog 现读不另存；只存读到哪、书签、前文梗概与设置，随备份。删除这条频道会一并清掉这本书的进度与书签。书架顶部「最近在读」只显标题与读到哪。</p>
+        <p><strong>存什么</strong>：书从 Blog 现读不另存；只存读到哪、书签、前文梗概与设置，随备份。删除这条频道会一并清掉这本书的进度与书签。书架顶部「最近在读」按「书 × TA」各记一条，写明与谁读到哪，点哪条就接着和那位 TA 读（一本书可以先后和不同的 TA 读，各有各的进度；换一位没读过的 TA 会从最近一次的位置接着）；书架里的日志卡显示最近一次的进度与正文节选。</p>
       </div>
       <div class="g-sec">
         <div class="g-name">Cinema — 观影室</div>
@@ -2340,7 +2386,10 @@ raf=requestAnimationFrame(frame);
         <div class="g-sub">
           <p><strong>外部工具</strong>：添加 HTTP 接口让 AI 在对话中调用外部操作（如 Home Assistant 等）。每个工具配置名称、URL、请求方法和参数。支持调用前确认。请求由浏览器直接发出，目标接口需允许跨域（CORS）。</p>
           <p><strong>MCP 服务器</strong>：连接 MCP 服务器后自动发现可用工具，调用方式与外部工具一致。支持多服务器并行接入，每个服务器可独立启用或禁用其工具。连接失败时请检查跨域（CORS）设置。DIY 页内置<strong>麦当劳</strong>与<strong>瑞幸咖啡</strong>两张官方预设：点「添加」自动填好别名与官方端点（mcp.mcd.cn / gwmcp.lkcoffee.com），再到对应开放平台登录领取个人 Token 填入令牌栏、点「连接」即可接入（令牌随请求以 Authorization: Bearer 发送，只存在你的设备与备份里）；这两家工具的调用结果会渲染成对应品牌主题的小卡片（菜单 / 订单 / 取餐码 / 优惠券自动排版，四种状态各有其形）。用不上可点预设卡右上角 ✕ 隐藏，已添加的服务器也随时可删。补充：麦当劳 / 瑞幸这两枚官方端点<strong>未对浏览器放行跨域</strong>（实测预检即 403 / 401、响应不带 Access-Control-Allow-Origin），与令牌对错无关——浏览器会直接拦下（报「网络错误，可能是 CORS 未放行」），需在 MCP 卡的「跨域中转」栏填入自建转发（见下一段），直连失败时自动改走中转。</p>
-          <p><strong>跨域中转（CORS 代理）</strong>：给浏览器环境准备的自建转发。原理：请求先发给你自己的中转服务，由它在服务器侧转发到目标端点并补上 CORS 响应头（服务器对服务器不受浏览器跨域限制）。推荐 Cloudflare Worker（免费额度足够）：新建 Worker → 粘贴下方代码 → 部署，把「https://你的名字.workers.dev/?u=」填进 MCP 卡的「跨域中转」栏即可；地址里含 {url} 则按占位符替换，否则在末尾拼接编码后的目标地址。令牌等请求头会原样经过你的 Worker、不落任何第三方，因此<strong>务必只用自己部署的中转、不要用公共代理</strong>。Worker 代码：<code style="display:block;white-space:pre-wrap;word-break:break-all;font-size:0.74em;line-height:1.65;margin-top:6px;padding:8px 10px;border-radius:10px;background:rgba(120,140,170,0.12)">export default{async fetch(r){const u=new URL(r.url).searchParams.get(&quot;u&quot;);if(!u)return new Response(&quot;missing u&quot;,{status:400});if(r.method===&quot;OPTIONS&quot;)return new Response(null,{status:204,headers:C()});const h=new Headers(r.headers);[&quot;origin&quot;,&quot;referer&quot;,&quot;host&quot;,&quot;cf-connecting-ip&quot;,&quot;x-forwarded-for&quot;].forEach(k=&gt;h.delete(k));const p=await fetch(u,{method:r.method,headers:h,body:[&quot;GET&quot;,&quot;HEAD&quot;].includes(r.method)?undefined:r.body});const o=new Headers(p.headers);for(const[k,v]of Object.entries(C()))o.set(k,v);return new Response(p.body,{status:p.status,headers:o})}};const C=()=&gt;({&quot;Access-Control-Allow-Origin&quot;:&quot;*&quot;,&quot;Access-Control-Allow-Methods&quot;:&quot;*&quot;,&quot;Access-Control-Allow-Headers&quot;:&quot;*&quot;,&quot;Access-Control-Expose-Headers&quot;:&quot;*&quot;});</code></p>
+          <p><strong>跨域中转（CORS 代理）</strong>：给浏览器环境准备的自建转发。原理：请求先发给你自己的中转服务，由它在服务器侧转发到目标端点并补上 CORS 响应头（服务器对服务器不受浏览器跨域限制）。推荐 Cloudflare Worker（免费额度足够）：新建 Worker → 粘贴下方代码 → 部署，把「https://你的名字.workers.dev/?u=」填进 MCP 卡的「跨域中转」栏即可；地址里含 {url} 则按占位符替换，否则在末尾拼接编码后的目标地址。令牌等请求头会原样经过你的 Worker、不落任何第三方，因此<strong>务必只用自己部署的中转、不要用公共代理</strong>。下面是新版代码（MUSIC 的网易云模式也走这条中转：它会把 X-IB-Cookie / X-IB-Referer / X-IB-UA 换成真实请求头、把 Set-Cookie 放进 X-IB-Set-Cookie 回传、并把你的真实 IP 以 X-Real-IP 转给目标；旧版 Worker 连 MCP 照旧、连不上网易云——把代码整段换掉即可，MCP 那边不受影响；换的时候把你原来的白名单主机和口令填回代码开头的 ALLOW / KEY，白名单里加上 music.163.com）。Worker 代码：<code style="display:block;white-space:pre-wrap;word-break:break-all;font-size:0.74em;line-height:1.65;margin-top:6px;padding:8px 10px;border-radius:10px;background:rgba(120,140,170,0.12)">const ALLOW=[];/* 目标主机白名单，留空＝不限制；想收紧就填，如 [&quot;music.163.com&quot;,&quot;mcp.example.com&quot;] */
+const KEY=&quot;&quot;;/* 可选口令：填了以后地址要写成 https://你的名字.workers.dev/?k=口令&amp;u= */
+const C=(r)=&gt;({&quot;Access-Control-Allow-Origin&quot;:&quot;*&quot;,&quot;Access-Control-Allow-Methods&quot;:&quot;*&quot;,&quot;Access-Control-Allow-Headers&quot;:(r&amp;&amp;r.headers.get(&quot;access-control-request-headers&quot;))||&quot;*&quot;,&quot;Access-Control-Expose-Headers&quot;:&quot;*&quot;});
+export default{async fetch(r){if(r.method===&quot;OPTIONS&quot;)return new Response(null,{status:204,headers:C(r)});const q=new URL(r.url).searchParams,u=q.get(&quot;u&quot;);if(!u)return new Response(&quot;missing u&quot;,{status:400});if(KEY&amp;&amp;q.get(&quot;k&quot;)!==KEY)return new Response(&quot;forbidden&quot;,{status:403});let t;try{t=new URL(u)}catch(e){return new Response(&quot;bad u&quot;,{status:400})}if(ALLOW.length&amp;&amp;!ALLOW.includes(t.hostname))return new Response(&quot;host not allowed&quot;,{status:403});const h=new Headers(r.headers);[&quot;origin&quot;,&quot;referer&quot;,&quot;host&quot;,&quot;cf-connecting-ip&quot;,&quot;x-forwarded-for&quot;,&quot;x-real-ip&quot;,&quot;cf-ray&quot;,&quot;cf-visitor&quot;,&quot;cf-ipcountry&quot;,&quot;cf-worker&quot;].forEach(k=&gt;h.delete(k));const ip=r.headers.get(&quot;cf-connecting-ip&quot;);if(ip){h.set(&quot;X-Real-IP&quot;,ip);h.set(&quot;X-Forwarded-For&quot;,ip)}for(const[a,b]of[[&quot;x-ib-cookie&quot;,&quot;cookie&quot;],[&quot;x-ib-referer&quot;,&quot;referer&quot;],[&quot;x-ib-ua&quot;,&quot;user-agent&quot;]]){const v=h.get(a);if(v!=null){h.set(b,v);h.delete(a)}}const p=await fetch(t,{method:r.method,headers:h,body:[&quot;GET&quot;,&quot;HEAD&quot;].includes(r.method)?undefined:r.body});const o=new Headers();p.headers.forEach((v,k)=&gt;{if(k!==&quot;set-cookie&quot;)o.append(k,v)});let sc=[];try{sc=typeof p.headers.getSetCookie===&quot;function&quot;?p.headers.getSetCookie():[]}catch(e){}if(!sc.length&amp;&amp;p.headers.get(&quot;set-cookie&quot;))sc=[p.headers.get(&quot;set-cookie&quot;)];if(sc.length)o.set(&quot;X-IB-Set-Cookie&quot;,sc.join(&quot;, &quot;));for(const[k,v]of Object.entries(C(r)))o.set(k,v);return new Response(p.body,{status:p.status,headers:o})}};</code></p>
           <p><strong>联网搜索</strong>：同一处还内置 <strong>Parallel</strong> 与 <strong>Exa</strong> 两张联网搜索预设（两家官方公开端点，无需令牌、允许浏览器直连）。点「添加」即自动入列并连接，之后 AI 在对话里需要时会自己调用搜索 / 抓网页工具（默认仍会先询问你是否允许，可在 MCP 卡关掉「调用前询问」）。公开端点有限流，重度使用可到对方官网领取 API key 填入该服务器的令牌栏。<!-- v131-p --></p>
           <p><strong>生活服务</strong>：同一处还有 <strong>滴滴出行</strong> 与 <strong>高德地图</strong> 两张官方预设。点「添加」自动填好端点，再到 mcp.didichuxing.com（滴滴账号或 App 扫码激活 MCP Key）/ 高德开放平台（Web 服务 Key）领取 Key 填入令牌栏、点「连接」；这两家的 Key 走 URL 查询串，会自动拼接。滴滴给出估价、打车链接、下单、查订单与司机位置、取消以及地点搜索与路线规划（taxi_create_order 会产生真实订单，请开着「调用前询问」，或先用 …/mcp-servers-sandbox 试）；高德给出地理编码、天气、四种路线与地点搜索。注意：这两家是否放行浏览器跨域尚未确定，网页版连不上时改用 App 端。<!-- v179-p --></p>
           <p><strong>连接 GitHub 仓库（MCP 进阶方案）</strong>：只需要读改仓库文件时，用 ICode 页 → GitHub 分区的内置直连即可，无需本方案。以下面向想让 AI 通过 MCP 直接调用 GitHub 接口的进阶用法。<!-- v101-m 任务3：步骤拆行 --></p>
@@ -3041,7 +3090,7 @@ self.addEventListener(&#x27;fetch&#x27;,function(e){
       <div class="sec-label">Music</div>
       <div class="card fx-card"><div class="fx-ico"><svg viewBox="0 0 24 24"><circle cx="7" cy="17.5" r="2.7"/><circle cx="17.5" cy="15.5" r="2.7"/><path d="M9.7 17.5V6.8L20.2 4.6v10.9"/></svg></div>
         <div class="tog"><div class="tog-m"><div class="tog-t">正在播放注入</div><div class="tog-s">播放器播放时，把当前曲目、播放进度、已分析到的歌曲结构与附近歌词随消息注入上下文。未选一起听对象时推给正在聊天的任意好友；在播放器里选了一起听对象后只推给 TA。首次播放会在本机分析动态；若已配置语音转写接口，还会自动生成带时间轴的人声文字稿。</div></div><div class="sw2" id="music-share"></div></div>
-        <div class="tog"><div class="tog-m"><div class="tog-t">允许 AI 控制播放器</div><div class="tog-s">AI 可按你的要求播放、暂停、切换歌单内的歌曲，操作以卡片显示。开启后当前歌单曲名会随消息发送。</div></div><div class="sw2" id="music-ctl"></div></div>
+        <div class="tog"><div class="tog-m"><div class="tog-t">允许 AI 控制播放器</div><div class="tog-s">AI 可按你的要求播放、暂停、切换歌单内的歌曲，操作以卡片显示。开启后当前歌单曲名会随消息发送。网易云模式下可另开放点歌 / 切歌单 / 红心 / 加歌删歌 / 建歌单 / 改简介，逐项在 MUSIC → 网易云音乐 里设置。</div></div><div class="sw2" id="music-ctl"></div></div>
       </div>
       
       <!-- ── 记忆系统（v66-m t8：唯一入口，口径照电脑端） ── -->
@@ -3364,8 +3413,7 @@ self.addEventListener(&#x27;fetch&#x27;,function(e){
       <i class="ma-arm" aria-hidden="true"><i></i></i>
       <i class="ma-vinyl" aria-hidden="true"><i class="ma-vlabel"><svg viewBox="0 0 24 24"><circle cx="8" cy="17" r="2.4"/><circle cx="17.5" cy="15" r="2.4"/><path d="M10.4 17V7l9-2.1V15"/></svg></i></i>
     </div>
-    <div class="ma-inforow"><div class="ma-info"><div class="ma-t" id="ma-t">Music</div><div class="ma-s" id="ma-s">—</div></div><button class="ma-btn ma-mini" id="ma-mate" title="一起听"><svg viewBox="0 0 24 24"><path d="M12 20.4S4.6 15.9 2.9 11.6C1.7 8.5 3.5 5.6 6.4 5.2c1.9-.26 3.7.62 4.8 2.15C12.3 5.82 14.1 4.94 16 5.2c2.9.4 4.7 3.3 3.5 6.4-1.7 4.3-9.1 8.8-9.1 8.8z"/></svg></button></div>
-    <div class="ma-lyr" id="ma-lyr"></div>
+    <div class="ma-inforow"><div class="ma-info"><div class="ma-t" id="ma-t">Music</div><div class="ma-s" id="ma-s">—</div></div><button class="ma-btn ma-mini" id="ma-mate" title="一起听"><svg viewBox="0 0 24 24"><path d="M12 20.2C10.6 19 3.4 13.9 3.4 9.1c0-2.5 1.9-4.4 4.3-4.4 1.8 0 3.3 1 4.3 2.6 1-1.6 2.5-2.6 4.3-2.6 2.4 0 4.3 1.9 4.3 4.4 0 4.8-7.2 9.9-8.6 11.1z"/></svg></button><button class="ma-btn ma-mini" id="ma-minipw" title="迷你播放器"><svg viewBox="0 0 24 24"><rect x="3.5" y="5.5" width="17" height="13" rx="3.2"/><circle cx="9" cy="12" r="2.9"/><circle cx="9" cy="12" r="0.7" fill="currentColor"/><path d="M14.2 10.4h3.3M14.2 13.6h2.2"/></svg></button></div><div class="ma-lyr" id="ma-lyr"></div>
   </div>
   <div class="ma-foot">
     <div class="ma-barrow"><span class="ma-tm" id="ma-cur">--:--</span><div class="ma-pb" id="ma-pb"><i id="ma-fill"></i></div><span class="ma-tm" id="ma-dur">--:--</span></div>
@@ -3865,6 +3913,7 @@ self.addEventListener(&#x27;fetch&#x27;,function(e){
   <div class="sheet-btns"><button class="btn primary" data-close="1">关闭</button></div>
 </div>
 
+<div id="mini-pw" class="glass" hidden><div class="mpw-turn"><div class="mpw-disc"><b></b><i></i></div><div class="mpw-arm"><span></span></div></div><div class="mpw-m"><div class="mpw-t" id="mpw-t">—</div><div class="mpw-s" id="mpw-s"></div><div class="mpw-l none" id="mpw-l"></div></div></div>
 <div class="sheet" id="sheet-thread">
   <h3 id="the-title">新建话题频道</h3>
   <div class="f-group"><label>频道名称 *</label><input id="the-name" maxlength="24"></div>
@@ -3977,6 +4026,16 @@ self.addEventListener(&#x27;fetch&#x27;,function(e){
     <h3>PLAYLIST</h3>
     <div id="pw-list" style="max-height:56vh;overflow:auto;margin:4px 0 8px"></div>
     <div class="sheet-btns"><button class="btn" id="pw-add2">添加音乐</button><button class="btn" data-close="1">关闭</button></div>
+  </div>
+  <div class="sheet" id="sheet-masrc"><h3>MUSIC SOURCE</h3>
+    <div class="mate-row" id="masrc-local"><span class="ncm-ico"><svg viewBox="0 0 24 24"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h3l2 2h6A2.5 2.5 0 0 1 20 8.5v8A2.5 2.5 0 0 1 17.5 19h-11A2.5 2.5 0 0 1 4 16.5z"/></svg></span><div class="ncm-rm"><b>本地音乐</b><small>本机音频与歌词文件；点击添加</small></div><span class="ncm-chk"></span></div>
+    <div class="mate-row" id="masrc-ncm"><span class="ncm-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3.2"/><path d="M12 3.5v2.4M12 18.1v2.4M3.5 12h2.4M18.1 12h2.4"/></svg></span><div class="ncm-rm"><b>网易云音乐</b><small id="masrc-ncm-s">登录账号，听自己的歌单</small></div><span class="ncm-chk"></span></div>
+    <p class="hint" style="margin-top:10px">两档各自独立：本地曲库与网易云队列互不干扰，切换时停止当前播放。</p>
+    <div class="sheet-btns"><button class="btn" data-close="1">关闭</button></div>
+  </div>
+  <div class="sheet" id="sheet-ncm"><h3>NETEASE CLOUD MUSIC</h3>
+    <div id="ncm-body"></div>
+    <div class="sheet-btns"><button class="btn" id="ncm-tolocal">回到本地音乐</button><button class="btn" data-close="1">关闭</button></div>
   </div>
   <div class="sheet" id="sheet-mate">
     <h3>LISTEN TOGETHER</h3>
@@ -4806,8 +4865,8 @@ function _meetWidgetDraw(){try{var box=document.getElementById('sb-meet');if(!bo
   if(ts){var b=new Date(ts);var b0=new Date(b.getFullYear(),b.getMonth(),b.getDate());days=Math.max(0,Math.round((t0-b0)/86400000));var nx=new Date(b0);nx.setFullYear(t0.getFullYear());if(nx<t0)nx.setFullYear(t0.getFullYear()+1);left=Math.round((nx-t0)/86400000)}
   box.innerHTML='<div class="sbh-meet"><div class="ca-duo hm-duo"><div class="ca-ava me"></div><div class="ca-ava ai'+(c?'':' site')+'"></div><svg class="ca-orbit over hm-one" viewBox="0 0 236 74" aria-hidden="true"><path class="hm-halo" d="'+_HM_ORBIT_D+'"/><path class="hm-line" d="'+_HM_ORBIT_D+'"/></svg></div>'
     +'<div class="hm-names"><span>'+esc(meName)+'</span><i>&amp;</i><span>'+esc(nm)+'</span></div>'
-    +'<div class="hm-row"><div class="hm-tf">together for</div>'
-    +'<div class="hm-days">'+(ts===undefined?'<b>…</b>':(days===null?'<b>—</b>':'<b>'+days+'</b>'))+'<span>'+(days===1?'Day':'Days')+'</span></div></div>'/* v202-p：并成一行 */
+    +'<div class="hm-tf">together for</div>'
+    +'<div class="hm-days">'+(ts===undefined?'<b>…</b>':(days===null?'<b>—</b>':'<b>'+days+'</b>'))+'<span>'+(days===1?'Day':'Days')+'</span></div>'
     +'<div class="hm-cd">'+(ts===undefined?'counting…':(days===null?'no record yet':(left===0?'anniversary is today':(left+' days to go'))))+'</div></div>';
   try{setAvaEl(box.querySelector('.ca-ava.me'),meAva,meName);var ae=box.querySelector('.ca-ava.ai');if(c)setAvaEl(ae,aiAva,nm);else{ae.textContent='';ae.classList.add('hm-site')}}catch(e){}
 }catch(e){}}
@@ -7098,7 +7157,8 @@ $('the-save').addEventListener('click',async()=>{
 });
 async function _ibAppThreadGoneM(t){
   if(!t||!t.kind||!t.film||!t.film.hash)return;var h=String(t.film.hash),ids=[];
-  if(t.kind==='cinema')ids=['film_'+h,'sum_'+h];else if(t.kind==='coread'){var pid=h.replace(/^post_/,'');ids=['pos_'+pid,'sum_'+pid,'bm_'+pid]}
+  if(t.kind==='cinema')ids=['film_'+h,'sum_'+h];else if(t.kind==='coread'){var pid=h.replace(/^post_/,'');ids=['pos_'+pid,'sum_'+pid,'bm_'+pid];
+    try{var pk='app_coread_'+('pos_'+pid).replace(/[^\w.-]/g,'_').slice(0,80);var pr=await dbGet('apiSettings',pk);var pv=pr&&pr.v;if(pv&&pv.by&&typeof pv.by==='object'){var rest=Object.keys(pv.by).filter(function(k){return k!==t.friendId&&!!pv.by[k]});if(rest.length){delete pv.by[t.friendId];var best=null;rest.forEach(function(k){var r=pv.by[k];if(!best||(r.updated||0)>(best.r.updated||0))best={k:k,r:r}});Object.assign(pv,{off:best.r.off|0,page:best.r.page||1,pct:best.r.pct||0,ch:best.r.ch||'',cfgId:best.k,updated:best.r.updated||Date.now()});pr.v=pv;pr.updated=Date.now();await dbPut('apiSettings',pr);ids=[]}}}catch(e){}}
   for(var i=0;i<ids.length;i++){try{await dbDelete('apiSettings','app_'+t.kind+'_'+String(ids[i]).replace(/[^\w.-]/g,'_').slice(0,80))}catch(e){}}
 }
 async function _delThreadM(t){
@@ -9003,7 +9063,7 @@ async function genReply(cfg,internalCtx){
     if(!_quietM&&await _askGlobalGetM())parts.push(_ASK_INSTR_BLOCK);/* v66-m：与电脑端共用 askGlobal */
     try{const _advI=await _ibAdvGet();if(!_quietM&&_advI.memSearch)parts.push(_MEMSEARCH_INSTR_BLOCK.replace(/^\n+/,''));if(!_quietM&&_advI.calWrite)parts.push(_CALWRITE_INSTR_BLOCK.replace(/^\n+/,''));if(!_quietM&&_advI.blogWrite)parts.push(_BLOGWRITE_INSTR_BLOCK.replace(/^\n+/,''));if(cfg&&cfg.memWrite)parts.push(_MEMWRITE_INSTR_BLOCK.replace(/^\n+/,''))}catch(e){}
     if(!_quietM&&_mp.imggen&&_mp.imggen.on&&_igOK(cfg))parts.push(_IMGGEN_INSTR_BLOCK);
-    try{if(!_quietM&&_mp.musicAi&&_mp.musicAi.ctl)parts.push(_MUSIC_INSTR_BLOCK_M)}catch(e){}/* v88-m 第二刀①：播放器协议上移 System */
+    try{if(!_quietM&&_mp.musicAi&&_mp.musicAi.ctl)parts.push(_MUSIC_INSTR_BLOCK_M+((typeof _ncmInstrM==='function')?_ncmInstrM():''))}catch(e){}/* v88-m 第二刀①：播放器协议上移 System *//* v204-p：网易云模式下追加逐项开放的网易云指令块 */
     try{if(!_quietM&&cfg&&cfg.beyond&&cfg.beyond.on&&await _ibfMaster())parts.push(await _ibBeyondInstrM(cfg))}catch(e){}/* v88-m 第二刀②：Beyond 操作协议上移 System，Tail 只留动态与签名数据 */
     /* v89-m：联网搜索使用边界已按用户决定移除（不再注入任何"何时不该搜"说明） */
     try{if(window._ibAppSysM&&window._ibAppSysM.text&&(!window._ibAppSysM.cfgId||window._ibAppSysM.cfgId===cfg.id))parts.push(String(window._ibAppSysM.text).slice(0,4000))}catch(e){}/* v189-p：桌面 APP 常驻说明（随 ctx.sys.set 整块进 System，切换即重建一次缓存） */
@@ -12390,7 +12450,7 @@ function _orientApply(){try{
   setTimeout(function(){try{if(window.IBNative&&window.IBNative.available){var _bg=$('pres-bg');var _row=_bg&&_bg.closest('.tog');if(_row)_row.style.display=''}}catch(e){}},1200);/* v116-p：壳内显露「后台 Presence（系统级）」开关（桥在文末激活，故延时探测；浏览器 / PWA 保持隐藏） */
 })();
 function _vidQNormM(v){v=String(v==null?'m':v);if(v==='384')return 'l';if(v==='768')return 'h';if(v==='512')return 'm';return (v==='l'||v==='h')?v:'m'}/* 画质档位兼容电脑端备份里的 384/512/768 写法 */
-var IB_VER='v202-p',IB_VER_DATE='2026-09-03';
+var IB_VER='v205-p',IB_VER_DATE='2026-09-03';
 (function _appVerDraw(){var e=document.getElementById('app-ver');if(e)e.textContent='InternalBeyond Mobile '+IB_VER+'（'+IB_VER_DATE+'）'})();
 function _lkVeilOff(){try{var v=document.getElementById('lk-preveil');if(v){v.classList.add('off');setTimeout(function(){try{v.remove()}catch(e){}},420)}}catch(e){}}/* fix-r4：预遮罩揭幕（任务 8） */
 async function _lkBoot(){try{await loadBgs()}catch(e){}var lk=_lkCfg();try{localStorage.setItem('ib_lockOn',lk&&lk.on?'1':'0')}catch(e){}/* v101-m：启动后把 DB 真值回写同步镜像 */if(lk&&lk.on)_lkShow();else _lkVeilOff()}
@@ -16054,7 +16114,7 @@ async function procIbOps(cfg,m){
     c=c.replace(/<ws_post\b([^>]*)>([\s\S]*?)<\/ws_post>/gi,function(_,at,body){if(!post)post={img:wsAttr(at,'img'),vis:wsAttr(at,'vis'),text:body.trim()};return ''});
     c=c.replace(/<ws_comment\b([^>]*)>([\s\S]*?)<\/ws_comment>/gi,function(_,at,body){if(cmts.length<2)cmts.push({pid:wsAttr(at,'id'),re:wsAttr(at,'re'),text:body.trim()});return ''});/* v84-m r3：+re */
     var rp=null;c=c.replace(/<ws_repost\b([^>]*)>([\s\S]*?)<\/ws_repost>/gi,function(_,at,body){if(!rp)rp={pid:wsAttr(at,'id'),text:body.trim()};return ''});c=c.replace(/<ws_repost\b([^>]*?)\/>/gi,function(_,at){if(!rp)rp={pid:wsAttr(at,'id'),text:''};return ''});/* v84-m r3：转发标签 */
-    c=c.replace(/<ws_music\b([^>]*?)\/?>(?:\s*<\/ws_music>)?/gi,function(_,at){if(!music)music={op:String(wsAttr(at,'op')||'').toLowerCase(),q:wsAttr(at,'q')};return ''});
+    c=c.replace(/<ws_music\b([^>]*?)\/?>(?:\s*<\/ws_music>)?/gi,function(_,at){if(!music)music={op:String(wsAttr(at,'op')||'').toLowerCase(),q:wsAttr(at,'q'),to:wsAttr(at,'to'),desc:wsAttr(at,'desc')};return ''});/* v204-p：+to / desc（网易云歌单操作） */
     c=c.replace(/<ws_weather\b[^>]*?\/?>(?:\s*<\/ws_weather>)?/gi,function(){wantWx=true;return ''});
     c=c.replace(/<ws_loc\b[^>]*?\/?>(?:\s*<\/ws_loc>)?/gi,function(){wantLoc=true;return ''});/* v83-m r7 */
     c=c.replace(/<ws_phone\b[^>]*?\/?>(?:\s*<\/ws_phone>)?/gi,function(){wantPhone=true;return ''});/* v95-m 任务7 */
@@ -16116,7 +16176,7 @@ async function procIbOps(cfg,m){
     if(music){
       var ma=(_mp&&_mp.musicAi)||{};
       if(!ma.ctl)results.push({ok:false,label:'播放器',detail:'未开启「允许 AI 控制播放器」'});
-      else results.push(_mtExec(music.op,music.q));
+      else results.push(await _mtExec(music.op,music.q,music));/* v204-p：网易云 op 走异步执行器 */
     }
     if(wantWx){
       await loadMP();
@@ -17352,8 +17412,8 @@ body.theme-infernal .sb-meet .hm-one .hm-line{stroke:rgba(214,230,255,0.86);filt
 .sbh-meet{position:relative;padding:8px 6px 6px;text-align:center}.sbh-meet .hm-duo{margin:2px auto 10px;width:212px;height:66.5px}.sbh-meet .hm-duo .ca-ava{width:59.5px;height:59.5px;top:3.5px;font-size:1.35rem}.sbh-meet .hm-duo .ca-ava.me{left:3.5px}.sbh-meet .hm-duo .ca-ava.ai{right:3.5px}/* v202-p：轨道盘与头像 ×0.9（236→212px，SVG 随 viewBox 缩、路径几何不变），整卡按比例收 */
 .sbh-meet .ca-ava.site.hm-site{background:radial-gradient(circle at 35% 30%,rgba(255,255,255,0.9),rgba(160,190,235,0.45));font-family:var(--serif);font-style:italic;font-weight:600;color:var(--acc);display:flex;align-items:center;justify-content:center}.sbh-meet .ca-ava.site.hm-site::after{content:'IB';font-size:0.9rem;letter-spacing:0.04em}
 .hm-names{display:flex;align-items:baseline;justify-content:center;gap:8px;margin-top:6px;font-family:var(--serif);font-size:1.42rem;font-weight:500;color:var(--tx);letter-spacing:0.02em}.hm-names i{font-style:italic;color:var(--acc);font-size:0.95em}.hm-names span{max-width:44%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.hm-row{display:flex;align-items:baseline;justify-content:center;gap:10px;margin-top:8px;line-height:1.05;white-space:nowrap}.hm-row .hm-tf,.hm-row .hm-days{margin-top:0}/* v202-p：「together for」与「N Days」并成一行连续的句子，三段字号字距不变 */.hm-tf{margin-top:10px;font-family:var(--disp);font-weight:300;font-size:0.6rem;letter-spacing:0.3em;color:var(--tx3);text-transform:uppercase}
-.hm-days{display:flex;align-items:baseline;justify-content:center;gap:12px;margin-top:4px;line-height:1.05}.hm-days b{font-family:var(--serif);font-weight:600;font-size:2.6rem;color:var(--acc);letter-spacing:0.01em;font-variant-numeric:tabular-nums}.hm-days span{font-family:var(--serif);font-style:italic;font-weight:600;font-size:1.2rem;color:var(--tx2);letter-spacing:0.05em}
+.hm-tf{margin-top:9px;font-family:var(--disp);font-weight:300;font-size:0.54rem;letter-spacing:0.32em;color:var(--tx3);text-transform:uppercase}body.theme-infernal .sb-meet .hm-tf{color:var(--tx2)}.sb-meet .hm-names,.sb-meet .hm-tf,.sb-meet .hm-days b,.sb-meet .hm-days span,.sb-meet .hm-cd{text-shadow:0 1px 0 rgba(255,255,255,0.55),0 2px 8px rgba(24,44,84,0.16)}body.theme-infernal .sb-meet .hm-names,body.theme-infernal .sb-meet .hm-tf,body.theme-infernal .sb-meet .hm-days b,body.theme-infernal .sb-meet .hm-days span,body.theme-infernal .sb-meet .hm-cd{text-shadow:0 1px 0 rgba(0,0,0,0.42),0 2px 10px rgba(0,0,0,0.5)}
+.hm-days{display:flex;align-items:baseline;justify-content:center;gap:9px;margin-top:2px;line-height:1.05}.hm-days b{font-family:var(--serif);font-weight:600;font-size:2.15rem;color:var(--acc);letter-spacing:0.01em;font-variant-numeric:tabular-nums}.hm-days span{font-family:var(--serif);font-style:italic;font-weight:600;font-size:1.05rem;color:var(--tx2);letter-spacing:0.05em}
 .hm-cd{display:block;width:max-content;max-width:100%;box-sizing:border-box;margin:10px auto 0;flex:none;align-self:center;padding:5px 15px;border-radius:999px;background:rgba(255,255,255,0.42);border:1px solid rgba(255,255,255,0.7);font-family:var(--disp);font-size:0.62rem;letter-spacing:0.16em;color:var(--tx2);text-transform:uppercase}body.theme-infernal .hm-cd{background:rgba(30,44,72,0.45);border-color:rgba(165,190,228,0.22)}
 /* v193-p：日历相遇卡连线层不透明度整体拉高（白色高光撤掉后线太淡） */
 .ca-orbit .l-tube{opacity:calc(var(--caTubeO) * 1.7)}.ca-orbit .l-base{opacity:calc(var(--caBaseO) * 1.7)}.ca-orbit .l-liq{opacity:calc(var(--caLiqO) * 1.45)}.ca-orbit .l-flow{opacity:calc(var(--caHeadO) * 1.35)}
@@ -22180,7 +22240,8 @@ try{var _cso9=$('call-set-open');if(_cso9)_cso9.addEventListener('click',functio
   function pct(){if(!T.length)return 0;var e=starts[pi+1]||T.length;return Math.min(100,Math.round(e/T.length*100))}
   function totalPages(){return done?starts.length:Math.max(starts.length,Math.round(T.length/Math.max(80,est)))}
   function chapAt(off){var c=null;for(var i=0;i<chapters.length;i++){if(chapters[i].off<=off)c=chapters[i];else break}return c}
-  function posRec(){var c=chapAt(starts[pi]||0);return {off:starts[pi]||0,page:pi+1,pct:pct(),title:B?B.title:'',ch:c?c.title:'',cfgId:sess?sess.cfgId:'',updated:Date.now()}}
+  var posBy={};/* v203-p：每位 TA 各一份进度（书 × TA），顶层仍是最近一次 */
+  function posRec(){var c=chapAt(starts[pi]||0);var r={off:starts[pi]||0,page:pi+1,pct:pct(),title:B?B.title:'',ch:c?c.title:'',cfgId:(sess&&sess.cfgId)||aiId||'',updated:Date.now()};var by={};try{Object.keys(posBy||{}).forEach(function(k){if(posBy[k])by[k]=posBy[k]})}catch(e){}if(r.cfgId)by[r.cfgId]={off:r.off,page:r.page,pct:r.pct,ch:r.ch,updated:r.updated};r.by=by;posBy=by;return r}
   function savePos(){if(!B)return;clearTimeout(posT);posT=setTimeout(function(){try{if(B)ctx.storage.set('pos_'+B.id,posRec())}catch(e){}},400)}
   function vib(){if(S.vib){try{if(navigator.vibrate)navigator.vibrate(8)}catch(e){}}}
   async function wakeOn(){if(!S.wake||!B||wl)return;try{if(navigator.wakeLock&&navigator.wakeLock.request){wl=await navigator.wakeLock.request('screen');wl.addEventListener('release',function(){wl=null})}}catch(e){wl=null}}
@@ -22320,9 +22381,9 @@ try{var _cso9=$('call-set-open');if(_cso9)_cso9.addEventListener('click',functio
     if(!ok&&sess){sess.nudgeN--;sess.lastNudge=now-Math.max(gap,600000)+30000}
   }
   /* ── 书架 ── */
-  function bookCard(p,mini){
-    var pp=posMap[p.id];var d=dateOf(p.created);
-    if(mini)return '<div class="cr-book mini" data-id="'+esc(p.id)+'"><div class="cr-date'+(pp?' rd':'')+'">'+(pp?('<b>'+(pp.pct||0)+'<small style="display:inline;margin:0;font-size:0.5rem">%</small></b><small>read</small>'):('<b>'+d.d+'</b><small>'+d.m+'</small>'))+'</div><div class="cr-bm"><div class="cr-bt">'+esc(p.title)+'</div><div class="cr-bs">'+(pp?('读到 <i>'+esc(pp.ch||('第 '+(pp.page||1)+' 页'))+'</i> · '+(pp.pct||0)+'%'):'还没开始读')+'</div></div></div>';/* 手机端：最近在读只显标题与阅读进度 */
+  function bookCard(p,mini,rr,fid){
+    mini=(mini===true);var pp=rr||posMap[p.id];var d=dateOf(p.created);
+    if(mini){var who=fid?aiList.filter(function(a){return a.id===fid})[0]:null;return '<div class="cr-book mini" data-id="'+esc(p.id)+'" data-fid="'+esc(fid||'')+'"><div class="cr-date'+(pp?' rd':'')+'">'+(pp?('<b>'+(pp.pct||0)+'<small style="display:inline;margin:0;font-size:0.5rem">%</small></b><small>read</small>'):('<b>'+d.d+'</b><small>'+d.m+'</small>'))+'</div><div class="cr-bm"><div class="cr-bt">'+esc(p.title)+'</div><div class="cr-bs">'+(pp?((who?('与 '+esc(who.name)+' '):'')+'读到 <i>'+esc(pp.ch||('第 '+(pp.page||1)+' 页'))+'</i> · '+(pp.pct||0)+'%'):'还没开始读')+'</div></div></div>'}/* 手机端：最近在读只显标题与阅读进度；v203-p：加「与谁」 */
     return '<div class="cr-book" data-id="'+esc(p.id)+'">'
       +'<div class="cr-date'+(pp?' rd':'')+'">'+(pp?('<b>'+(pp.pct||0)+'<small style="display:inline;margin:0;font-size:0.5rem">%</small></b><small>read</small>'):('<b>'+d.d+'</b><small>'+d.m+'</small>'))+'</div>'
       +'<div class="cr-bm"><div class="cr-bt">'+esc(p.title)+'</div>'
@@ -22333,11 +22394,12 @@ try{var _cso9=$('call-set-open');if(_cso9)_cso9.addEventListener('click',functio
   function paintShelfList(){
     var box=q('#cr-list');if(!box)return;var s=qStr.trim().toLowerCase();
     var vis=s?posts.filter(function(p){return (p.title+' '+(p.subtitle||'')+' '+(p.category||'')+' '+(p.excerpt||'')).toLowerCase().indexOf(s)!==-1}):posts;
-    var recent=s?[]:vis.filter(function(p){return posMap[p.id]}).sort(function(a,b){return (posMap[b.id].updated||0)-(posMap[a.id].updated||0)}).slice(0,5);
-    box.innerHTML=(recent.length?('<div class="cr-lab">最近在读</div>'+recent.map(function(p){return bookCard(p,true)}).join('')):'')
+    var recent=[];if(!s){vis.forEach(function(p){var pp=posMap[p.id];if(!pp)return;var by=(pp.by&&typeof pp.by==='object')?pp.by:null;var ks=by?Object.keys(by).filter(function(k){return !!by[k]}):[];if(ks.length)ks.forEach(function(k){recent.push({p:p,fid:k,r:by[k]})});else recent.push({p:p,fid:pp.cfgId||'',r:pp})});recent.sort(function(a,b){return (b.r.updated||0)-(a.r.updated||0)});recent=recent.slice(0,5)}/* v203-p：最近在读按「书 × TA」各一条，绑到那位 TA 的共读频道 */
+    box.innerHTML=(recent.length?('<div class="cr-lab">最近在读</div>'+recent.map(function(e){return bookCard(e.p,true,e.r,e.fid)}).join('')):'')
       +'<div class="cr-lab">书架 · '+vis.length+' 本</div>'
-      +(vis.length?vis.map(bookCard).join(''):'<div class="cr-empty">'+(s?'没有匹配的日志。':'Blog 里还没有日志。先在 Blog 写一篇，或把 txt 导入成一篇。')+'</div>');
-    Array.prototype.forEach.call(box.querySelectorAll('.cr-book'),function(r){r.addEventListener('click',function(){openBook(r.getAttribute('data-id'))})});
+      +(vis.length?vis.map(function(p){return bookCard(p,false)}).join(''):'<div class="cr-empty">'+(s?'没有匹配的日志。':'Blog 里还没有日志。先在 Blog 写一篇，或把 txt 导入成一篇。')+'</div>');
+    Array.prototype.forEach.call(box.querySelectorAll('.cr-book'),function(r){r.addEventListener('click',function(){openBook(r.getAttribute('data-id'),r.getAttribute('data-fid')||'')})});
+    try{var labs=box.querySelectorAll('.cr-lab'),shelfLab=labs[labs.length-1],n=shelfLab?shelfLab.nextElementSibling:null;while(n){var nx=n.nextElementSibling;if(n.classList&&n.classList.contains('cr-book')&&n.classList.contains('mini')){var p2=posts.filter(function(p){return p.id===n.getAttribute('data-id')})[0];if(p2){var tmp=document.createElement('div');tmp.innerHTML=bookCard(p2,false);var nn=tmp.firstChild;nn.addEventListener('click',function(){openBook(nn.getAttribute('data-id'),'')});n.parentNode.replaceChild(nn,n)}}n=nx}}catch(e){}
   }
   async function paintShelf(){
     if(!host)return;host.innerHTML='<div class="cr"><div class="cr-top"><button class="cr-mini" id="cr-x">← Blog</button><div class="cr-tt">共读间<small>Co-reading</small></div></div><div class="cr-shelf"><div class="cr-empty">读取书架…</div></div></div>';
@@ -22358,7 +22420,7 @@ try{var _cso9=$('call-set-open');if(_cso9)_cso9.addEventListener('click',functio
   }
   /* ── 阅读器 ── */
   function cleanupBook(){clearTimeout(bgT);clearTimeout(resT);clearInterval(pendT);pending=false;typ=null;listIds='';try{if(ro)ro.disconnect()}catch(e){}ro=null;B=null;T='';starts=[0];done=false;pi=0;notes=[];bms=[];chapters=[];probe=null;pageEl=null;quote='';lastSel='';imm=false;roSize='';notesOpen=false;sum={text:'',upTo:0}}
-  async function openBook(id){
+  async function openBook(id,fid){/* v203-p：fid＝从「最近在读」点进来的那位 TA */
     if(!aiId){toast('先选一位 TA');return}
     var p=null;try{p=await ctx.blog.get(id)}catch(e){}
     if(!host)return;
@@ -22367,10 +22429,13 @@ try{var _cso9=$('call-set-open');if(_cso9)_cso9.addEventListener('click',functio
     bms=[];try{bms=(await ctx.storage.get('bm_'+B.id))||[]}catch(e){}
     sum={text:'',upTo:0};try{var sv=await ctx.storage.get('sum_'+B.id);if(sv&&typeof sv==='object')sum={text:String(sv.text||''),upTo:sv.upTo|0}}catch(e){}
     var pos=null;try{pos=await ctx.storage.get('pos_'+B.id)}catch(e){}
-    if(pos&&pos.cfgId&&aiList.some(function(a){return a.id===pos.cfgId}))aiId=pos.cfgId;/* 上次和谁读的就接着和谁读 */
+    posBy=(pos&&pos.by&&typeof pos.by==='object')?Object.assign({},pos.by):{};
+    if(fid&&aiList.some(function(a){return a.id===fid}))aiId=fid;/* v203-p：点的是哪位 TA 的那条就接着和 TA 读 */
+    else if(pos&&pos.cfgId&&aiList.some(function(a){return a.id===pos.cfgId}))aiId=pos.cfgId;/* 上次和谁读的就接着和谁读 */
     if(!host||!B)return;
     imm=false;notesOpen=false;paintReader();
-    await relayout((pos&&pos.off)|0);
+    var pb=(aiId&&posBy[aiId])||pos;/* v203-p：进度按这位 TA 取；没和 TA 读过就从最近一次接着 */
+    await relayout((pb&&pb.off)|0);
     if(!host||!B)return;
     if(!await startSession()){cleanupBook();if(host)paintShelf();return}
     paintNotes(true);try{if(ctx.chat.busy(sess.cfgId))pendOn()}catch(e){}wakeOn();
@@ -22490,6 +22555,350 @@ try{var _cso9=$('call-set-open');if(_cso9)_cso9.addEventListener('click',functio
   });
 })();
 
+</script>
+<script id="ib-ncm">
+
+var IBQR=(function(){
+  var EXP=new Array(256),LOG=new Array(256);(function(){var x=1;for(var i=0;i<255;i++){EXP[i]=x;LOG[x]=i;x<<=1;if(x&256)x^=0x11d}for(var j=255;j<256;j++)EXP[j]=EXP[j-255]})();
+  function gmul(a,b){if(!a||!b)return 0;return EXP[(LOG[a]+LOG[b])%255]}
+  /* 纠错 L：版本 → [总码字, 每块纠错码字, 块数, 每块数据码字] */
+  var T={1:[26,7,1,19],2:[44,10,1,34],3:[70,15,1,55],4:[100,20,1,80],5:[134,26,1,108],6:[172,18,2,68]};
+  var ALIGN={1:[],2:[6,18],3:[6,22],4:[6,26],5:[6,30],6:[6,34]};
+  function rsGen(n){var g=[1];for(var i=0;i<n;i++){var ng=new Array(g.length+1).fill(0);for(var j=0;j<g.length;j++){ng[j]^=g[j];ng[j+1]^=gmul(g[j],EXP[i])}g=ng}return g}
+  function rsEnc(data,n){var g=rsGen(n),r=new Array(n).fill(0);for(var i=0;i<data.length;i++){var c=data[i]^r[0];r.shift();r.push(0);if(c)for(var j=0;j<n;j++)r[j]^=gmul(g[j+1],c)}return r}
+  function bytesOf(s){var u=unescape(encodeURIComponent(s)),o=[];for(var i=0;i<u.length;i++)o.push(u.charCodeAt(i));return o}
+  function encode(text){
+    var d=bytesOf(text),ver=0;for(var v=1;v<=6;v++){var cap=T[v][2]*T[v][3];if(d.length+2<=cap){ver=v;break}}
+    if(!ver)throw new Error('QR too long');
+    var t=T[ver],total=t[2]*t[3];var bits=[];function put(val,len){for(var i=len-1;i>=0;i--)bits.push((val>>i)&1)}
+    put(4,4);put(d.length,8);d.forEach(function(b){put(b,8)});
+    var rem=total*8-bits.length;put(0,Math.min(4,rem));while(bits.length%8)bits.push(0);
+    var cw=[];for(var i=0;i<bits.length;i+=8){var b=0;for(var j=0;j<8;j++)b=(b<<1)|bits[i+j];cw.push(b)}
+    var pad=[0xec,0x11],pi=0;while(cw.length<total)cw.push(pad[(pi++)&1]);
+    var blocks=[],ecs=[];for(var k=0;k<t[2];k++){var blk=cw.slice(k*t[3],(k+1)*t[3]);blocks.push(blk);ecs.push(rsEnc(blk,t[1]))}
+    var out=[];for(var i=0;i<t[3];i++)blocks.forEach(function(b){if(i<b.length)out.push(b[i])});for(var i=0;i<t[1];i++)ecs.forEach(function(b){out.push(b[i])});
+    return{ver:ver,cw:out};
+  }
+  function matrix(ver,cw){
+    var n=ver*4+17,M=[],R=[];for(var i=0;i<n;i++){M.push(new Array(n).fill(0));R.push(new Array(n).fill(false))}
+    function set(r,c,v){M[r][c]=v?1:0;R[r][c]=true}
+    function finder(r0,c0){for(var r=-1;r<=7;r++)for(var c=-1;c<=7;c++){var rr=r0+r,cc=c0+c;if(rr<0||cc<0||rr>=n||cc>=n)continue;var on=(r>=0&&r<=6&&c>=0&&c<=6)&&(r===0||r===6||c===0||c===6||(r>=2&&r<=4&&c>=2&&c<=4));set(rr,cc,on)}}
+    finder(0,0);finder(0,n-7);finder(n-7,0);
+    for(var i=8;i<n-8;i++){set(6,i,i%2===0);set(i,6,i%2===0)}
+    var al=ALIGN[ver];for(var a=0;a<al.length;a++)for(var b=0;b<al.length;b++){var r0=al[a],c0=al[b];if(R[r0][c0])continue;for(var r=-2;r<=2;r++)for(var c=-2;c<=2;c++)set(r0+r,c0+c,Math.max(Math.abs(r),Math.abs(c))!==1)}
+    set(n-8,8,1);
+    /* 格式信息位先占位 */
+    for(var i=0;i<9;i++){if(i!==6){R[8][i]=true;R[i][8]=true}}for(var i=0;i<8;i++){R[8][n-1-i]=true;R[n-1-i][8]=true}
+    /* 数据布放 */
+    var bits=[];cw.forEach(function(b){for(var i=7;i>=0;i--)bits.push((b>>i)&1)});
+    var bi=0,up=true;for(var col=n-1;col>0;col-=2){if(col===6)col--;for(var k=0;k<n;k++){var row=up?n-1-k:k;for(var dc=0;dc<2;dc++){var c=col-dc;if(R[row][c])continue;M[row][c]=bi<bits.length?bits[bi]:0;bi++}}up=!up}
+    return{n:n,M:M,R:R};
+  }
+  function maskFn(m,r,c){switch(m){case 0:return (r+c)%2===0;case 1:return r%2===0;case 2:return c%3===0;case 3:return (r+c)%3===0;case 4:return (Math.floor(r/2)+Math.floor(c/3))%2===0;case 5:return (r*c)%2+(r*c)%3===0;case 6:return ((r*c)%2+(r*c)%3)%2===0;default:return ((r+c)%2+(r*c)%3)%2===0}}
+  function applyMask(g,m){var n=g.n,out=[];for(var r=0;r<n;r++){out.push(g.M[r].slice());for(var c=0;c<n;c++)if(!g.R[r][c]&&maskFn(m,r,c))out[r][c]^=1}return out}
+  function format(mask){var f=(1<<3)|mask;var v=f<<10;for(var i=14;i>=10;i--)if((v>>i)&1)v^=0x537<<(i-10);return ((f<<10)|v)^0x5412}
+  function writeFormat(M,n,mask){var f=format(mask);var bit=function(i){return (f>>i)&1};
+    for(var i=0;i<6;i++)M[8][i]=bit(14-i);M[8][7]=bit(8);M[8][8]=bit(7);M[7][8]=bit(6);for(var i=0;i<6;i++)M[5-i][8]=bit(5-i);
+    for(var i=0;i<7;i++)M[n-1-i][8]=bit(14-i);for(var i=0;i<8;i++)M[8][n-8+i]=bit(7-i);}
+  function penalty(M,n){var p=0;
+    for(var r=0;r<n;r++){var run=1;for(var c=1;c<n;c++){if(M[r][c]===M[r][c-1]){run++;if(run===5)p+=3;else if(run>5)p++}else run=1}}
+    for(var c=0;c<n;c++){var run=1;for(var r=1;r<n;r++){if(M[r][c]===M[r-1][c]){run++;if(run===5)p+=3;else if(run>5)p++}else run=1}}
+    for(var r=0;r<n-1;r++)for(var c=0;c<n-1;c++){var v=M[r][c];if(v===M[r][c+1]&&v===M[r+1][c]&&v===M[r+1][c+1])p+=3}
+    var dark=0;for(var r=0;r<n;r++)for(var c=0;c<n;c++)dark+=M[r][c];var k=Math.abs(dark*100/(n*n)-50)/5;p+=Math.floor(k)*10;return p}
+  function make(text){var e=encode(text),g=matrix(e.ver,e.cw),best=null,bs=1e9;
+    for(var m=0;m<8;m++){var M=applyMask(g,m);writeFormat(M,g.n,m);var s=penalty(M,g.n);if(s<bs){bs=s;best=M}}
+    return{n:g.n,M:best,ver:e.ver}}
+  function draw(canvas,text,size,fg,bg){var q=make(text),n=q.n,quiet=2,scale=Math.floor(size/(n+quiet*2)),px=scale*(n+quiet*2);canvas.width=px;canvas.height=px;var ctx=canvas.getContext('2d');ctx.fillStyle=bg||'#fff';ctx.fillRect(0,0,px,px);ctx.fillStyle=fg||'#000';for(var r=0;r<n;r++)for(var c=0;c<n;c++)if(q.M[r][c])ctx.fillRect((c+quiet)*scale,(r+quiet)*scale,scale,scale);return q}
+  return{make:make,draw:draw};
+})();
+
+
+(function(){
+'use strict';
+var LS='ib_ncm';
+var S={mode:'local',cookie:'',csrf:'',uid:0,nick:'',ava:'',vip:0,q:[],pl:{id:0,name:''},lv:'exhigh',ai:{search:true,playlist:true,like:false,edit:false,create:false,desc:false},pls:[],plsAt:0,proxy:''};
+function load(){try{var j=JSON.parse(localStorage.getItem(LS)||'null');if(j&&typeof j==='object'){Object.keys(j).forEach(function(k){S[k]=j[k]});if(!S.ai||typeof S.ai!=='object')S.ai={search:true,playlist:true,like:false,edit:false,create:false,desc:false};if(!Array.isArray(S.q))S.q=[];if(!S.pl)S.pl={id:0,name:''};if(!Array.isArray(S.pls))S.pls=[]}}catch(e){}}
+function save(){try{localStorage.setItem(LS,JSON.stringify(S,function(k,v){if(k==='lyrics'||k==='coverData'||k==='_hd')return undefined;return v}))}catch(e){}}
+load();
+window._ncm=S;
+function on(){return S.mode==='ncm'}
+window._ncmOn=on;
+function logged(){return !!S.cookie}
+function $i(x){return document.getElementById(x)}
+function T(x){try{toast(x)}catch(e){}}
+function https(u){u=String(u||'');return u.replace(/^http:\/\//i,'https://')}
+function fmtDur(s){s=Math.max(0,Math.round(s||0));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')}
+function form(o){return Object.keys(o).map(function(k){return encodeURIComponent(k)+'='+encodeURIComponent(o[k]==null?'':o[k])}).join('&')}
+function rndHex(n){var s='';for(var i=0;i<n;i++)s+=Math.floor(Math.random()*16).toString(16);return s}
+var NUID=rndHex(32);
+/* ── 传输：经自己部署的跨域中转 ── */
+var UA='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36';
+function nat(){return null}/* 浏览器版一律走跨域中转 */
+function proxyFor(u){var p=String(S.proxy||'').trim();if(!p){try{p=String((_mp&&_mp.mcp&&_mp.mcp.proxy)||'').trim()}catch(e){}}if(!p)return '';return p.indexOf('{url}')>=0?p.replace('{url}',encodeURIComponent(u)):(p+encodeURIComponent(u))}/* 网易云页自己填的中转优先，没填就沿用 MCP 卡「跨域中转」；拼法同一套 */
+var NO_TRANSPORT='先到 DIY → MCP 卡填「跨域中转」（要用 GUIDE 里的新版 Worker 代码，并放行 music.163.com）';
+function canGo(){return !!(nat()||proxyFor('https://music.163.com/'))}
+function cookieStr(extra){var p=[];if(S.cookie)p.push('MUSIC_U='+S.cookie);if(S.csrf)p.push('__csrf='+S.csrf);p.push('os=pc','__remember_me=true','_ntes_nuid='+NUID,'_ntes_nnid='+NUID+','+Date.now());if(extra)p.push(extra);return p.join('; ')}
+function msgOf(j){return String((j&&(j.message||j.msg||j.error))||('网易云返回 code '+(j&&j.code)))}
+async function req(path,opt){opt=opt||{};
+  var url='https://music.163.com'+path;var body=opt.form!=null?opt.form:(opt.data?form(opt.data):null);var method=opt.method||(body!=null?'POST':'GET');
+  var N=nat(),st=0,j=null,hd2={};
+  if(N){var hd={'Referer':'https://music.163.com/','User-Agent':UA,'Accept':'application/json, text/plain, */*','Cookie':cookieStr(opt.cookie)};if(body!=null)hd['Content-Type']='application/x-www-form-urlencoded';
+    var r;try{r=await N.request({url:url,method:method,headers:hd,data:body!=null?body:undefined,responseType:'text',connectTimeout:15000,readTimeout:20000})}catch(e){throw new Error('网络错误：'+String((e&&e.message)||e).slice(0,100))}
+    st=(r&&r.status)|0;if(r&&typeof r.data==='string'){try{j=JSON.parse(r.data)}catch(e){}}else if(r&&r.data&&typeof r.data==='object')j=r.data;
+    try{var H=(r&&r.headers)||{};Object.keys(H).forEach(function(k){hd2[String(k).toLowerCase()]=H[k]})}catch(e){}
+  }else{var px=proxyFor(url);if(!px)throw new Error(NO_TRANSPORT);
+    var hb={'Accept':'application/json, text/plain, */*','X-IB-Cookie':cookieStr(opt.cookie),'X-IB-Referer':'https://music.163.com/','X-IB-UA':UA};if(body!=null)hb['Content-Type']='application/x-www-form-urlencoded';
+    var ac=new AbortController(),tmo=setTimeout(function(){try{ac.abort()}catch(e){}},20000);var rb;
+    try{rb=await fetch(px,{method:method,headers:hb,body:body!=null?body:undefined,signal:ac.signal})}catch(e){clearTimeout(tmo);throw new Error(e&&e.name==='AbortError'?'中转超时':'网络错误：跨域中转不可达，或它没放行 music.163.com')}
+    clearTimeout(tmo);st=rb.status|0;var txt='';try{txt=await rb.text()}catch(e){}try{j=JSON.parse(txt)}catch(e){}
+    try{hd2['set-cookie']=rb.headers.get('x-ib-set-cookie')||''}catch(e){}
+    if(!j&&st>=400)throw new Error('中转返回 HTTP '+st+(st===403?'（口令不对或主机未放行）':''));
+  }
+  if(!j)throw new Error('HTTP '+st+'：响应无法解析'+(N?'':'（中转是不是旧版代码？）'));
+  try{Object.defineProperty(j,'_hd',{value:hd2,enumerable:false})}catch(e){}
+  if(!opt.raw&&j.code!==undefined&&j.code!==200){var er=new Error(msgOf(j));er.code=j.code;er.json=j;throw er}
+  return j;
+}
+/* ── weapi 加密（与网易云网页端同算法：AES-CBC 两轮 + RSA 无填充） ── */
+var TE=new TextEncoder();var W_IV=TE.encode('0102030405060708'),W_KEY=TE.encode('0CoJUm6Qyw8W8jud'),W_B62='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+var W_N=BigInt('0xe0b509f6259df8642dbc35662901477df22677ec152b5ff68ace615bb7b725152b3ab17a876aea8a5aa76d2e417629ec4ee341f56135fccf695280104e0312ecbda92557c93870114af6c9d05c4f7f0c3685b7a46bee255932575cce10b424d813cfe4875d3e82047b97ddef52741d546b8e289dc6935b3ece0462db0a22b8e7'),W_E=BigInt(65537);
+function b64(u8){var s='';for(var i=0;i<u8.length;i++)s+=String.fromCharCode(u8[i]);return btoa(s)}
+async function aesCbc(key,bytes){var k=await crypto.subtle.importKey('raw',key,{name:'AES-CBC'},false,['encrypt']);return b64(new Uint8Array(await crypto.subtle.encrypt({name:'AES-CBC',iv:W_IV},k,bytes)))}
+function modPow(b,e,m){var r=BigInt(1);b%=m;while(e>BigInt(0)){if(e&BigInt(1))r=r*b%m;e>>=BigInt(1);b=b*b%m}return r}
+async function weapi(obj){obj=Object.assign({},obj,{csrf_token:S.csrf||''});var text=JSON.stringify(obj);var sk=new Uint8Array(16);crypto.getRandomValues(sk);for(var i=0;i<16;i++)sk[i]=W_B62.charCodeAt(sk[i]%62);
+  var first=await aesCbc(W_KEY,TE.encode(text));var params=await aesCbc(sk,TE.encode(first));var hex='';Array.from(sk).reverse().forEach(function(x){hex+=('0'+x.toString(16)).slice(-2)});
+  var ch=modPow(BigInt('0x'+hex),W_E,W_N).toString(16);while(ch.length<256)ch='0'+ch;return 'params='+encodeURIComponent(params)+'&encSecKey='+ch}
+async function wreq(path,data,opt){opt=opt||{};return req(path+(path.indexOf('?')<0?'?csrf_token=':'&csrf_token=')+encodeURIComponent(S.csrf||''),Object.assign({form:await weapi(data||{}),method:'POST'},opt))}
+function ibMd5(str){var u=unescape(encodeURIComponent(String(str)));var K=[],Sh=[7,12,17,22,7,12,17,22,7,12,17,22,7,12,17,22,5,9,14,20,5,9,14,20,5,9,14,20,5,9,14,20,4,11,16,23,4,11,16,23,4,11,16,23,4,11,16,23,6,10,15,21,6,10,15,21,6,10,15,21,6,10,15,21];for(var i=0;i<64;i++)K[i]=Math.floor(Math.abs(Math.sin(i+1))*4294967296);
+  var len=u.length,bl=((len+8>>6)+1)*16,w=new Array(bl).fill(0);for(var i=0;i<len;i++)w[i>>2]|=u.charCodeAt(i)<<((i%4)*8);w[len>>2]|=0x80<<((len%4)*8);w[bl-2]=(len*8)>>>0;w[bl-1]=Math.floor(len*8/4294967296);
+  var a=0x67452301,b=0xefcdab89,c=0x98badcfe,d=0x10325476;function rl(x,n){return (x<<n)|(x>>>(32-n))}
+  for(var j=0;j<bl;j+=16){var A=a,B=b,C=c,D=d;for(var i=0;i<64;i++){var f,g;if(i<16){f=(B&C)|(~B&D);g=i}else if(i<32){f=(D&B)|(~D&C);g=(5*i+1)%16}else if(i<48){f=B^C^D;g=(3*i+5)%16}else{f=C^(B|~D);g=(7*i)%16}var t=D;D=C;C=B;B=(B+rl((A+f+K[i]+w[j+g])|0,Sh[i]))|0;A=t}a=(a+A)|0;b=(b+B)|0;c=(c+C)|0;d=(d+D)|0}
+  return [a,b,c,d].map(function(x){var s='';for(var i=0;i<4;i++)s+=('0'+((x>>>(i*8))&255).toString(16)).slice(-2);return s}).join('')}
+/* ── 数据整形 ── */
+function mkRec(s){if(!s||!s.id)return null;var ar=(s.ar||s.artists||[]).map(function(a){return a&&a.name}).filter(Boolean).join(' / ');var al=s.al||s.album||{};var pic=al.picUrl||s.picUrl||'';var dur=(s.dt||s.duration||0)/1000;
+  return{id:'ncm_'+s.id,nid:s.id,ncm:true,name:String(s.name||''),title:String(s.name||''),artist:ar,album:String(al.name||''),cover:pic?(https(pic)+'?param=600y600'):'',dur:dur,fee:s.fee||0,metaScanned:true,analysis:{version:(window.IBMusicCore&&window.IBMusicCore.VERSION)||1,summary:'',duration:dur,ncm:true}}}
+function pickCookie(txt){txt=String(txt||'').trim();var out={u:'',c:''};var m=txt.match(/MUSIC_U=([^;\s,]+)/i);if(m)out.u=m[1];else if(/^[0-9a-f]{20,}$/i.test(txt))out.u=txt;var m2=txt.match(/__csrf=([^;\s,]+)/i);if(m2)out.c=m2[1];return out}
+function cookiesFrom(j){var h=(j&&j._hd)||{};var sc=String(h['set-cookie']||'');var out={u:'',c:''};var m=sc.match(/MUSIC_U=([^;,\s]+)/);if(m)out.u=m[1];var m2=sc.match(/__csrf=([^;,\s]+)/);if(m2)out.c=m2[1];return out}
+/* ── 账号 ── */
+async function account(){var j=await req('/api/w/nuser/account/get');var acc=j.account||{},pf=j.profile||null;if(!pf&&!acc.id){var er=new Error('登录已失效，重新登录');er.code=301;throw er}
+  S.uid=acc.id||(pf&&pf.userId)||0;S.nick=(pf&&pf.nickname)||('用户'+S.uid);S.ava=pf&&pf.avatarUrl?(https(pf.avatarUrl)+'?param=120y120'):'';S.vip=(pf&&pf.vipType)||acc.vipType||0;save();return S}
+async function playlists(force){if(!force&&S.pls.length&&Date.now()-S.plsAt<600000)return S.pls;var j=await req('/api/user/playlist?uid='+S.uid+'&limit=100&offset=0');
+  S.pls=(j.playlist||[]).map(function(p){return{id:p.id,name:String(p.name||''),n:p.trackCount||0,pic:p.coverImgUrl?(https(p.coverImgUrl)+'?param=120y120'):'',mine:!!(p.creator&&p.creator.userId===S.uid),liked:p.specialType===5}});S.plsAt=Date.now();save();return S.pls}
+async function details(ids){var out=[];for(var i=0;i<ids.length;i+=50){var c=ids.slice(i,i+50).map(function(id){return{id:id}});var j=await req('/api/v3/song/detail',{data:{c:JSON.stringify(c)}});(j.songs||[]).forEach(function(s){var r=mkRec(s);if(r)out.push(r)})}return out}
+async function tracksOf(pid,cap){cap=cap||500;var j=await req('/api/v6/playlist/detail?id='+pid+'&n=1000&s=8');var pl=j.playlist||{};var got=(pl.tracks||[]).map(mkRec).filter(Boolean);var ids=(pl.trackIds||[]).map(function(t){return t&&t.id}).filter(Boolean);
+  if(ids.length>got.length){var have={};got.forEach(function(r){have[r.nid]=1});var rest=ids.filter(function(id){return !have[id]}).slice(0,Math.max(0,cap-got.length));if(rest.length)got=got.concat(await details(rest))}
+  if(ids.length){var order={};ids.forEach(function(id,i){order[id]=i});got.sort(function(a,b){return (order[a.nid]||0)-(order[b.nid]||0)})}
+  return{name:String(pl.name||''),list:got.slice(0,cap),total:ids.length||got.length}}
+async function daily(){var j=await req('/api/v3/discovery/recommend/songs');return ((j.data&&j.data.dailySongs)||[]).map(mkRec).filter(Boolean)}
+async function fm(){var j=await req('/api/v1/radio/get');return (j.data||[]).map(mkRec).filter(Boolean)}
+async function record(all){var j=await req('/api/v1/play/record?uid='+S.uid+'&type='+(all?0:1)+'&limit=100');var arr=(all?j.allData:j.weekData)||[];return arr.map(function(r){var rec=mkRec(r&&r.song);if(rec&&r.playCount)rec.plays=r.playCount|0;return rec}).filter(Boolean)}/* 我的听歌排行：type 1 本周 / 0 全部（与 MCP get_play_history 同一接口） */
+async function search(q,n){var j=await req('/api/search/get?s='+encodeURIComponent(q)+'&type=1&limit='+(n||12)+'&offset=0');var songs=(j.result&&j.result.songs)||[];var ids=songs.map(function(s){return s.id});if(!ids.length)return[];try{var full=await details(ids);if(full.length){var by={};full.forEach(function(r){by[r.nid]=r});return ids.map(function(id){return by[id]}).filter(Boolean)}}catch(e){}return songs.map(mkRec).filter(Boolean)}
+async function lyric(nid){var j=await req('/api/song/lyric?id='+nid+'&lv=1&tv=1');var lrc=(j.lrc&&j.lrc.lyric)||'';var tl=(j.tlyric&&j.tlyric.lyric)||'';if(!lrc)return null;var ly=window.IBMusicCore.parseLyrics(lrc,'ncm.lrc');ly.timed=!!(ly.segments&&ly.segments.length);ly.source='lrc';if(tl)ly.translation=tl;return ly}
+async function songUrl(rec){var nid=rec.nid,lv=S.lv||'exhigh',u='',trial=false;
+  var tries=[function(){return req('/api/song/enhance/player/url/v1?ids='+encodeURIComponent('['+nid+']')+'&level='+lv+'&encodeType=mp3',{raw:true})},
+    function(){return wreq('/weapi/song/enhance/player/url/v1',{ids:'['+nid+']',level:lv,encodeType:'mp3'},{raw:true})},
+    function(){return wreq('/weapi/song/enhance/player/url',{ids:'['+nid+']',br:320000},{raw:true})}];
+  for(var i=0;i<tries.length&&!u;i++){try{var j=await tries[i]();var d=(j&&j.data&&j.data[0])||null;if(d&&d.url){u=https(d.url);trial=!!d.freeTrialInfo}}catch(e){}}
+  if(!u){u='https://music.163.com/song/media/outer/url?id='+nid+'.mp3';rec._outer=true}else rec._outer=false;
+  rec._trial=trial;return u}
+async function like(nid,yes){await req('/api/song/like?trackId='+nid+'&like='+(yes?'true':'false')+'&csrf_token='+encodeURIComponent(S.csrf||''))}
+async function plOp(pid,nid,op){try{await req('/api/playlist/manipulate/tracks?csrf_token='+encodeURIComponent(S.csrf||''),{data:{pid:pid,trackIds:JSON.stringify([nid]),op:op,csrf_token:S.csrf||''}})}catch(e){if(e.code===502&&op==='add')throw new Error('这首歌已经在歌单里了');throw e}}
+async function plCreate(name,desc){var j=await req('/api/playlist/create?csrf_token='+encodeURIComponent(S.csrf||''),{data:{name:name,privacy:0,type:'NORMAL',csrf_token:S.csrf||''}});var pid=j.id||(j.playlist&&j.playlist.id);if(pid&&desc){try{await plDesc(pid,desc)}catch(e){}}S.plsAt=0;return pid}
+async function plDesc(pid,desc){await req('/api/playlist/desc/update?csrf_token='+encodeURIComponent(S.csrf||''),{data:{id:pid,desc:desc,csrf_token:S.csrf||''}})}
+async function coverData(rec){if(!rec.cover||rec.coverData)return;var N=nat();if(!N)return;try{var r=await N.request({url:rec.cover.replace(/\?param=.*$/,'?param=300y300'),method:'GET',headers:{'Referer':'https://music.163.com/','User-Agent':UA},responseType:'blob',connectTimeout:15000,readTimeout:20000});var b=(r&&typeof r.data==='string')?r.data.replace(/[\r\n\s]/g,''):'';if(b&&b.length<400000){var ct='image/jpeg';try{var H=(r&&r.headers)||{};Object.keys(H).forEach(function(k){if(String(k).toLowerCase()==='content-type'&&/image\//i.test(String(H[k])))ct=String(H[k]).split(';')[0]})}catch(e){}rec.coverData='data:'+ct+';base64,'+b}}catch(e){}}
+/* ── 模式切换 ── */
+function stopAudio(){try{var a=_pwA();a.pause();a.removeAttribute('src');a.load()}catch(e){}try{if(_pw.url){URL.revokeObjectURL(_pw.url);_pw.url=''}}catch(e){}}
+async function setMode(m){if(S.mode===m)return;S.mode=m;save();stopAudio();_pw.idx=-1;await _pwLoad();_pwPaint();_pwListDraw();try{if(window._maRefreshMusicM)window._maRefreshMusicM()}catch(e){}paintSrc();T(m==='ncm'?'已切到网易云音乐':'已回到本地音乐')}
+window._ncmSetMode=setMode;
+function setQueue(list,pl,playFrom){S.q=list.slice();S.pl=pl||{id:0,name:''};save();_pw.list=S.q;_pw.idx=-1;if(S.q.length&&playFrom!==false)_pwPlayIdx(0);else{_pwPaint();_pwListDraw()}}
+/* ── 播放内核挂钩（只在网易云模式下生效，本地模式一字不变） ── */
+var _pwLoad1=_pwLoad;_pwLoad=async function(){if(!on())return _pwLoad1();_pw.list=S.q;if(_pw.idx>=_pw.list.length)_pw.idx=_pw.list.length?_pw.list.length-1:-1};
+var _pwPlayIdx1=_pwPlayIdx,playTok=0,failN=0;
+_pwPlayIdx=async function(i){await _pwLoad();if(!on())return _pwPlayIdx1(i);
+  if(!_pw.list.length){T('队列为空，先选一个歌单');_pwPaint();return}
+  if(!(_pw.list[0]&&_pw.list[0].ncm))return _pwPlayIdx1(i);
+  i=((i%_pw.list.length)+_pw.list.length)%_pw.list.length;_pw.idx=i;var rec=_pw.list[i],a=_pwA();var tok=++playTok;_pwPaint();_pwListDraw();
+  var url='';try{url=await songUrl(rec)}catch(e){T(String((e&&e.message)||e))}
+  if(tok!==playTok)return;
+  try{if(_pw.url){URL.revokeObjectURL(_pw.url);_pw.url=''}}catch(e){}
+  a.src=url;ensure(rec);
+  try{await a.play();failN=0;if(rec._trial)T('VIP 曲目，当前账号只有试听片段')}catch(e){if(tok!==playTok)return;failN++;T('播放失败'+(rec._outer?'（未取到播放地址）':''));if(failN>=3){failN=0;T('连续 3 首都放不出来，已停下——检查网络或账号');return}if(_pw.list.length>1&&_pw.mode!=='one')setTimeout(function(){if(tok===playTok)_pwPlayIdx(i+1)},700);return}
+  _pwPaint();_pwListDraw();try{_musicSyncCardsM()}catch(e){}
+};
+var jobs={};
+function ensure(rec){if(!rec||!rec.ncm||jobs[rec.id])return;jobs[rec.id]=(async function(){try{if(!rec.lyrics){var ly=null;try{ly=await lyric(rec.nid)}catch(e){}rec.lyrics=ly||{source:'lrc',segments:[],text:'',timed:false,at:Date.now(),none:true};try{if(window._maRefreshMusicM)window._maRefreshMusicM()}catch(e){}}await coverData(rec);_pwPaint()}catch(e){}finally{delete jobs[rec.id]}})()}
+var _pwAddFiles1=_pwAddFiles;_pwAddFiles=async function(files,ctx){if(on()){var fs=Array.prototype.slice.call(files||[]).filter(function(f){return f&&f.size});var C=window.IBMusicCore;var lyr=C?fs.filter(C.isLyricFile):[],aud=C?fs.filter(C.isAudioFile):fs;
+    if(lyr.length&&!aud.length){var rec=cur();if(!rec){T('先播放一首歌再导入歌词');return}try{var txt=(typeof _musicReadLyricsTextM==='function')?await _musicReadLyricsTextM(lyr[0]):await lyr[0].text();var ly=C.parseLyrics(txt,lyr[0].name);ly.timed=!!(ly.segments&&ly.segments.length);rec.lyrics=ly;T('歌词已绑定到当前歌曲（网易云曲目只保留本次）');try{if(window._maRefreshMusicM)window._maRefreshMusicM()}catch(e){}}catch(e){T('歌词解析失败')}return}
+    await setMode('local')}return _pwAddFiles1(files,ctx)};
+var _pwListDraw1=_pwListDraw;_pwListDraw=function(){try{var b2=$i('pw-add2');if(b2)b2.textContent=on()?'网易云歌单':'添加音乐'}catch(e){}if(!on())return _pwListDraw1();var box=$i('pw-list'),sh=$i('sheet-music');if(!box||!sh||!sh.classList.contains('open'))return;box.innerHTML='';
+  var hd=document.createElement('div');hd.className='pwl-hd';hd.textContent=S.pl.name?('网易云 · '+S.pl.name):'网易云';box.appendChild(hd);
+  if(!_pw.list.length){var em=document.createElement('div');em.className='empty';em.textContent='队列为空。点下方「网易云歌单」选一个歌单或搜歌。';box.appendChild(em);return}
+  var tok=++drawTok,list=_pw.list;function mk(r,i){var row=document.createElement('div');row.className='pwl-row'+(i===_pw.idx?' on':'');row.innerHTML='<span class="pwl-n">'+(i+1)+'</span><span class="pwl-t">'+esc(r.title||r.name)+(r.artist?' <i class="pwl-ar">'+esc(r.artist)+'</i>':'')+'</span><span class="pwl-d">'+fmtDur(r.dur)+'</span><button class="pwl-x" title="移出队列"><svg viewBox="0 0 24 24"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg></button>';
+    row.addEventListener('click',function(){_pwPlayIdx(i)});row.querySelector('.pwl-x').addEventListener('click',function(e){e.stopPropagation();var was=(i===_pw.idx);S.q.splice(i,1);save();_pw.list=S.q;if(was){stopAudio();_pw.idx=S.q.length?Math.min(i,S.q.length-1):-1;if(_pw.idx>=0)_pwPlayIdx(_pw.idx)}else if(i<_pw.idx)_pw.idx--;_pwPaint();_pwListDraw()});return row}
+  var i=0;function step(){if(tok!==drawTok||!box.isConnected)return;var frag=document.createDocumentFragment(),end=Math.min(list.length,i+(i?80:60));for(;i<end;i++)frag.appendChild(mk(list[i],i));box.appendChild(frag);if(i<list.length)setTimeout(step,16)}step()/* 低配机策略：长队列分批画（首批 60 行，之后每 16ms 80 行），再切一次重画会作废前一轮 */};
+var drawTok=0;
+/* 「一起听」上下文：网易云曲目没有本机结构分析，改按歌名 / 歌手 / 专辑 / 歌词组织 */
+(function(){var C=window.IBMusicCore;if(!C)return;var ctx0=C.context;C.context=function(rec,sec,dur,fid,ma){if(!(rec&&rec.ncm))return ctx0.apply(this,arguments);ma=ma||{};var out=['【一起听歌】','正在播放：《'+(rec.title||rec.name)+'》'+(rec.artist?' · '+rec.artist:'')+(rec.album?'（专辑《'+rec.album+'》）':'')+'（网易云音乐，用户自己账号的歌单）'+((fid&&ma.mate===fid)?'（'+_amUserName()+'此刻正和你一起听这首歌）':'')];
+  if(isFinite(sec))out.push('当前进度：'+C.fmt(sec)+(isFinite(dur)&&dur>0?' / '+C.fmt(dur):''));
+  var near=C.nearLyrics(rec.lyrics,sec,12);if(near.length)out.push('当前附近歌词：\n'+near.map(function(s){return C.fmt(s.start)+' '+s.text}).join('\n'));else if(rec.lyrics&&rec.lyrics.text)out.push('这首歌有歌词但没有时间轴，无法定位当前一句。');else out.push('这首歌没有取到歌词。');
+  out.push('以上是程序实际取得的曲目 / 歌词参考。没有提供的具体旋律、编曲或细节不要假装听见；可以基于这些事实自然陪对方听。');return out.join('\n\n')}})();
+/* ── AI 控制：协议块与执行器扩展（受 Presence「允许 AI 控制播放器」总开关） ── */
+function aiLines(){if(!on()||!logged())return[];var ai=S.ai||{},L=[];
+  if(ai.search)L.push('<ws_music op="search" q="歌名 或 歌手 歌名"/> 点歌——在网易云搜索、把第一首匹配加进队列并播放');
+  if(ai.playlist)L.push('<ws_music op="playlist" q="歌单名"/> 切到用户的某个歌单（模糊匹配；q="每日推荐" 播放今日推荐，q="私人FM" 播放私人 FM，q="听歌排行" / "全部听歌排行" 播放用户本周 / 全部听歌排行）');
+  if(ai.like)L.push('<ws_music op="like"/> 红心当前曲　<ws_music op="unlike"/> 取消红心');
+  if(ai.edit)L.push('<ws_music op="add" q="歌名" to="歌单名"/> 把歌加进用户的歌单（q 省略＝当前曲）　<ws_music op="remove" q="歌名" to="歌单名"/> 从歌单移除');
+  if(ai.create)L.push('<ws_music op="create" q="歌单名" desc="简介"/> 在用户账号里新建歌单');
+  if(ai.desc)L.push('<ws_music op="desc" q="歌单名" desc="新简介"/> 改歌单简介');
+  L.push('<ws_music op="mode" q="loop|one|rand"/> 播放模式：列表循环 / 单曲循环 / 随机');return L}
+window._ncmInstrM=function(){var L=aiLines();if(!L.length)return'';return '\n【网易云音乐】播放器已切到网易云模式，放的是用户自己账号里的歌。除上面的播放器指令外，还可用：\n'+L.join('\n')+'\n仍是每条回复最多 1 个播放器指令，执行结果会回传。红心 / 加歌 / 删歌 / 建歌单 / 改简介会真实改动用户的网易云账号，只在用户明确要求时做；用户的歌单名单会在聊到音乐时作为参考资料提供。'};
+function fuzzy(list,key,q){q=String(q||'').trim().toLowerCase();if(!q)return -1;var i=list.findIndex(function(x){return String(x[key]||'').toLowerCase()===q});if(i<0)i=list.findIndex(function(x){return String(x[key]||'').toLowerCase().indexOf(q)>=0});if(i<0)i=list.findIndex(function(x){return q.indexOf(String(x[key]||'').toLowerCase())>=0&&String(x[key]||'').length>=2});return i}
+function cur(){return (_pw.idx>=0&&_pw.list)?_pw.list[_pw.idx]:null}
+async function findPl(q){var pls=await playlists();var i=fuzzy(pls,'name',q);if(i<0)throw new Error('用户的歌单里没有「'+q+'」。可用歌单：'+pls.slice(0,20).map(function(p){return p.name}).join(' / '));return pls[i]}
+async function pickSong(q){if(!q){var c=cur();if(!c)throw new Error('没有正在播放的歌，也没有指定歌名');return c}var i=fuzzy(_pw.list||[],'title',q);if(i>=0)return _pw.list[i];var rs=await search(q,3);if(!rs.length)throw new Error('网易云搜不到「'+q+'」');return rs[0]}
+async function exec(op,q,ext){ext=ext||{};var ai=S.ai||{};
+  if(!logged())return{ok:false,label:'网易云',detail:'用户还没登录网易云'};
+  try{
+    if(op==='search'){if(!ai.search)return{ok:false,label:'点歌',detail:'用户未开放「点歌」'};var rs=await search(q,5);if(!rs.length)return{ok:false,label:'点歌',detail:'网易云搜不到「'+q+'」'};var r=rs[0];var j=S.q.findIndex(function(x){return x.nid===r.nid});if(j<0){var at=_pw.idx>=0?_pw.idx+1:S.q.length;S.q.splice(at,0,r);save();_pw.list=S.q;j=at}await _pwPlayIdx(j);return{ok:true,label:'点歌',detail:'《'+r.title+'》'+(r.artist?' · '+r.artist:'')+(r._trial?'（VIP 曲目，只有试听片段）':'')}}
+    if(op==='playlist'){if(!ai.playlist)return{ok:false,label:'切歌单',detail:'用户未开放「切换歌单」'};var qq=String(q||'').replace(/\s+/g,'');
+      if(/每日推荐|今日推荐|daily/i.test(qq)){var d=await daily();if(!d.length)return{ok:false,label:'每日推荐',detail:'今天没有推荐'};setQueue(d,{id:'daily',name:'每日推荐'});return{ok:true,label:'每日推荐',detail:d.length+' 首，已从第一首开始'}}
+      if(/私人fm|私人电台|fm/i.test(qq)){var f=await fm();if(!f.length)return{ok:false,label:'私人 FM',detail:'FM 没有返回歌曲'};setQueue(f,{id:'fm',name:'私人 FM'});return{ok:true,label:'私人 FM',detail:f.map(function(x){return '《'+x.title+'》'}).join('')}}
+      if(/排行|榜|record|top/i.test(qq)){var all=/全部|总|all/i.test(qq);var rc=await record(all);if(!rc.length)return{ok:false,label:'听歌排行',detail:'排行里还没有歌'};setQueue(rc,{id:all?'rec_all':'rec_week',name:all?'听歌排行 · 全部':'听歌排行 · 本周'});return{ok:true,label:'听歌排行',detail:(all?'全部 ':'本周 ')+rc.length+' 首，已从第一首开始'}}
+      var p=await findPl(q);var t=await tracksOf(p.id);if(!t.list.length)return{ok:false,label:'切歌单',detail:'歌单「'+p.name+'」是空的'};setQueue(t.list,{id:p.id,name:p.name});return{ok:true,label:'切歌单',detail:'「'+p.name+'」'+t.list.length+' 首'+(t.total>t.list.length?'（歌单共 '+t.total+' 首，只载入前 '+t.list.length+' 首）':'')+'，已从第一首开始'}}
+    if(op==='like'||op==='unlike'){if(!ai.like)return{ok:false,label:'红心',detail:'用户未开放「红心」'};var s=await pickSong(q);await like(s.nid,op==='like');S.plsAt=0;return{ok:true,label:op==='like'?'红心':'取消红心',detail:'《'+s.title+'》'}}
+    if(op==='add'||op==='remove'){if(!ai.edit)return{ok:false,label:'歌单',detail:'用户未开放「加进 · 移出歌单」'};if(!ext.to)return{ok:false,label:'歌单',detail:'缺少 to="歌单名"'};var s2=await pickSong(q);var pl=await findPl(ext.to);await plOp(pl.id,s2.nid,op==='add'?'add':'del');S.plsAt=0;return{ok:true,label:op==='add'?'加进歌单':'移出歌单',detail:'《'+s2.title+'》→「'+pl.name+'」'}}
+    if(op==='create'){if(!ai.create)return{ok:false,label:'新建歌单',detail:'用户未开放「新建歌单」'};if(!q)return{ok:false,label:'新建歌单',detail:'缺少歌单名'};var pid=await plCreate(String(q).slice(0,40),String(ext.desc||'').slice(0,300));return{ok:true,label:'新建歌单',detail:'「'+q+'」'+(pid?'（id '+pid+'）':'')+(ext.desc?'，简介已写':'')}}
+    if(op==='desc'){if(!ai.desc)return{ok:false,label:'改简介',detail:'用户未开放「改歌单简介」'};var pl2=await findPl(q);await plDesc(pl2.id,String(ext.desc||'').slice(0,300));return{ok:true,label:'改简介',detail:'「'+pl2.name+'」的简介已更新'}}
+    if(op==='mode'){var m=String(q||'').toLowerCase();m=/one|单曲/.test(m)?'one':(/rand|随机|shuffle/.test(m)?'rand':'loop');_pw.mode=m;_pwPaint();try{await loadMP();_mp.ui=_mp.ui||{};_mp.ui.musicMode=m;await saveMP()}catch(e){}try{if(window._maRefreshMusicM)window._maRefreshMusicM()}catch(e){}return{ok:true,label:'播放模式',detail:m==='one'?'单曲循环':(m==='rand'?'随机播放':'列表循环')}}
+  }catch(e){return{ok:false,label:'网易云',detail:String((e&&e.message)||e).slice(0,160)}}
+  return null}
+var NCM_OPS={search:1,playlist:1,like:1,unlike:1,add:1,remove:1,create:1,desc:1,mode:1};
+var _mtExec1=_mtExec;_mtExec=async function(op,q,ext){if(on()&&NCM_OPS[op]){var r=await exec(op,q,ext);if(r)return r}return _mtExec1(op,q)};
+var _bmt1=buildMusicTail;buildMusicTail=function(userMsg,fid){var s=_bmt1(userMsg,fid)||'';try{var ma=(_mp&&_mp.musicAi)||{};if(on()&&logged()&&ma.ctl&&S.ai&&S.ai.playlist&&typeof _musicRelatedM==='function'&&_musicRelatedM(userMsg,cur())&&S.pls.length){s+=(s?'\n\n':'')+'【网易云歌单】'+(S.pl.name?'当前：「'+S.pl.name+'」；':'')+'用户的歌单：'+S.pls.slice(0,30).map(function(p){return '「'+p.name+'」'}).join(' ')}}catch(e){}return s};
+/* ── UI：音源切换 sheet ── */
+function paintSrc(){var a=$i('masrc-local'),b=$i('masrc-ncm');if(a)a.classList.toggle('on',!on());if(b)b.classList.toggle('on',on());var st=$i('masrc-ncm-s');if(st)st.textContent=logged()?(S.nick+(S.pl.name?' · '+S.pl.name:'')):'登录账号，听自己的歌单'}
+function openSrc(){paintSrc();openSheet('sheet-masrc')}
+window._ncmOpenSrc=openSrc;
+/* ── UI：网易云 sheet ── */
+var qrTmr=null,qrKey='';
+function stopQr(){if(qrTmr){clearInterval(qrTmr);qrTmr=null}qrKey=''}
+function vipName(v){v=+v||0;if(v>=11)return '黑胶 VIP';if(v>0)return 'VIP';return '普通账号'}
+function openNcm(){paint();openSheet('sheet-ncm')}
+window._ncmOpen=openNcm;
+function paint(){var b=$i('ncm-body');if(!b)return;stopQr();
+  if(!logged())return paintLogin(b);
+  b.innerHTML='<div class="ncm-acc"><div class="ma-ava ncm-ava" id="ncm-ava"></div><div class="ncm-accm"><b>'+esc(S.nick||'—')+'</b><small>'+esc(vipName(S.vip))+(S.uid?' · '+S.uid:'')+'</small></div><button class="btn ncm-out" id="ncm-logout" type="button">退出</button></div>'
+    +'<label class="spill ncm-spill"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="ncm-q" placeholder="搜歌 · 歌名 / 歌手" autocomplete="off" enterkeyhint="search"></label><div id="ncm-res"></div>'
+    +'<div class="sec-label ncm-sl">歌单</div><div id="ncm-pls"><div class="empty" style="padding:14px">正在读取歌单…</div></div>'
+    +'<div class="sec-label ncm-sl">播放</div><div class="f-group"><label>音质</label><div class="sel"><select id="ncm-lv"><option value="standard">标准</option><option value="higher">较高</option><option value="exhigh">极高</option><option value="lossless">无损</option></select></div></div>'
+    +'<div class="sec-label ncm-sl">AI 控制</div><p class="hint" style="margin:0 0 4px">受 Presence「允许 AI 控制播放器」总开关约束；开着的项会写进 TA 的系统能力行，切换后 TA 的下一条消息重建一次提示缓存。</p>'
+    +tog('search','点歌','按歌名或歌手搜索，把第一首匹配加进队列并播放。')+tog('playlist','切换歌单','切到你的某个歌单、每日推荐或私人 FM；聊到音乐时你的歌单名单会作为参考资料提供。')+tog('like','红心','红心 / 取消红心当前曲或指定歌曲。')+tog('edit','加进 · 移出歌单','把歌加进你的歌单，或从歌单移除。')+tog('create','新建歌单','在你的账号里新建歌单，可带简介。')+tog('desc','改歌单简介','更新某个歌单的简介。');
+  try{var av=$i('ncm-ava');if(S.ava){av.style.backgroundImage='url("'+S.ava+'")';av.style.backgroundSize='cover';av.textContent=''}else av.textContent=(S.nick||'?').slice(0,1)}catch(e){}
+  $i('ncm-logout').addEventListener('click',async function(){if(!await confirmDlg('退出网易云账号？队列会清空。','退出'))return;S.cookie='';S.csrf='';S.uid=0;S.nick='';S.ava='';S.vip=0;S.pls=[];S.plsAt=0;S.q=[];S.pl={id:0,name:''};save();stopAudio();_pw.idx=-1;_pw.list=S.q;_pwPaint();_pwListDraw();paint();paintSrc()});
+  var lv=$i('ncm-lv');lv.value=S.lv||'exhigh';lv.addEventListener('change',function(){S.lv=lv.value;save()});
+  b.querySelectorAll('.sw2[data-ai]').forEach(function(el){var k=el.getAttribute('data-ai');sw2(el,!!(S.ai&&S.ai[k]));el.addEventListener('click',function(){S.ai=S.ai||{};S.ai[k]=!S.ai[k];save();sw2(el,!!S.ai[k])})});
+  var qi=$i('ncm-q'),res=$i('ncm-res'),qt=null;
+  async function doSearch(){var q=String(qi.value||'').trim();if(!q){res.innerHTML='';return}res.innerHTML='<div class="empty" style="padding:12px">搜索中…</div>';try{var rs=await search(q,12);if(String(qi.value||'').trim()!==q)return;if(!rs.length){res.innerHTML='<div class="empty" style="padding:12px">没有找到「'+esc(q)+'」</div>';return}res.innerHTML='';rs.forEach(function(r){var row=document.createElement('div');row.className='mate-row ncm-row';row.innerHTML='<div class="ma-ava ncm-cv"'+(r.cover?' style="background-image:url(&quot;'+esc(r.cover.replace('600y600','120y120'))+'&quot;)"':'')+'></div><div class="ncm-rm"><b>'+esc(r.title)+(r.fee===1?' <i class="ncm-vip">VIP</i>':'')+'</b><small>'+esc(r.artist||'')+(r.album?' · '+esc(r.album):'')+'</small></div><span class="pwl-d">'+fmtDur(r.dur)+'</span>';row.addEventListener('click',function(){var j=S.q.findIndex(function(x){return x.nid===r.nid});if(j<0){var at=_pw.idx>=0?_pw.idx+1:S.q.length;S.q.splice(at,0,r);save();_pw.list=S.q;j=at}closeSheets();_pwPlayIdx(j)});res.appendChild(row)})}catch(e){res.innerHTML='<div class="empty" style="padding:12px">'+esc(String((e&&e.message)||e))+'</div>'}}
+  qi.addEventListener('input',function(){clearTimeout(qt);qt=setTimeout(doSearch,500)});qi.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();clearTimeout(qt);doSearch();try{qi.blur()}catch(x){}}});
+  paintPls();
+}
+function tog(k,t,s){return '<div class="tog nb ncm-tog"><div class="tog-m"><div class="tog-t">'+t+'</div><div class="tog-s">'+s+'</div></div><div class="sw2" data-ai="'+k+'"></div></div>'}
+async function paintPls(force){var box=$i('ncm-pls');if(!box)return;try{var pls=await playlists(force);if(!$i('ncm-pls'))return;box.innerHTML='';
+    var extra=[{id:'daily',name:'每日推荐',n:30,pic:'',sys:true},{id:'fm',name:'私人 FM',n:0,pic:'',sys:true},{id:'rec_week',name:'听歌排行 · 本周',n:0,pic:'',sys:true},{id:'rec_all',name:'听歌排行 · 全部',n:0,pic:'',sys:true}];
+    extra.concat(pls).forEach(function(p){var row=document.createElement('div');row.className='mate-row ncm-row'+(String(S.pl.id)===String(p.id)?' on':'');row.innerHTML='<div class="ma-ava ncm-cv'+(p.sys?' sys':'')+'"'+(p.pic?' style="background-image:url(&quot;'+esc(p.pic)+'&quot;)"':'')+'>'+(p.sys?({fm:'FM',daily:'日',rec_week:'周',rec_all:'总'}[p.id]||''):'')+'</div><div class="ncm-rm"><b>'+esc(p.name)+'</b><small>'+(p.sys?({fm:'算法给你挑的下一批',daily:'今天的 30 首',rec_week:'这一周听得最多的',rec_all:'一直以来听得最多的'}[p.id]||''):(p.n+' 首'+(p.liked?' · 红心':(p.mine?'':' · 收藏的'))))+'</small></div>';
+      row.addEventListener('click',async function(){try{row.classList.add('busy');var t;if(p.id==='daily'){var d=await daily();t={name:'每日推荐',list:d,total:d.length}}else if(p.id==='fm'){var f=await fm();t={name:'私人 FM',list:f,total:f.length}}else if(p.id==='rec_week'||p.id==='rec_all'){var rc=await record(p.id==='rec_all');t={name:p.name,list:rc,total:rc.length}}else t=await tracksOf(p.id);if(!t.list.length){T('这个歌单是空的');row.classList.remove('busy');return}setQueue(t.list,{id:p.id,name:t.name||p.name});closeSheets();if(t.total>t.list.length)T('歌单共 '+t.total+' 首，载入前 '+t.list.length+' 首')}catch(e){row.classList.remove('busy');T(String((e&&e.message)||e))}});box.appendChild(row)});
+    var rf=document.createElement('button');rf.type='button';rf.className='btn ncm-refresh';rf.textContent='刷新歌单';rf.addEventListener('click',function(){box.innerHTML='<div class="empty" style="padding:14px">正在读取歌单…</div>';paintPls(true)});box.appendChild(rf);
+  }catch(e){box.innerHTML='<div class="empty" style="padding:14px">'+esc(String((e&&e.message)||e))+'</div>';if(e&&e.code===301){S.cookie='';S.csrf='';save();paint()}}}
+function paintLogin(b){
+  b.innerHTML='<div class="ncm-tabs"><button class="btn on" type="button" data-t="qr">扫码</button><button class="btn" type="button" data-t="phone">手机号</button><button class="btn" type="button" data-t="cookie">Cookie</button></div>'
+    +'<div class="ncm-pane" data-p="qr"><div class="ncm-qr"><canvas id="ncm-qrc" width="200" height="200"></canvas></div><div class="ncm-st" id="ncm-qrst">正在生成二维码…</div><p class="hint" style="text-align:center">用另一台设备上的网易云音乐 App 扫码；二维码约 5 分钟内有效，过期点一下刷新。只有这一台手机时用「手机号」。</p></div>'
+    +'<div class="ncm-pane" data-p="phone" hidden><div class="f-group"><label>手机号</label><input id="ncm-phone" inputmode="tel" autocomplete="off" placeholder="11 位手机号"></div><div class="f-group"><label>密码 <span class="lb-note">（留空则用下面的验证码登录）</span></label><input id="ncm-pw" type="password" autocomplete="off" placeholder="网易云密码"></div><div class="f-group"><label>短信验证码</label><div class="ncm-inl"><input id="ncm-code" inputmode="numeric" autocomplete="off" placeholder="收到的验证码"><button class="btn" type="button" id="ncm-sendcode">发送验证码</button></div></div><button class="btn primary" type="button" id="ncm-login-phone" style="width:100%">登录</button></div>'
+    +'<div class="ncm-pane" data-p="cookie" hidden><div class="f-group"><label>MUSIC_U</label><textarea id="ncm-cookie" rows="3" placeholder="MUSIC_U=… 或整段 Cookie"></textarea></div><p class="hint">电脑浏览器登录 music.163.com → F12 → Application → Cookies 里复制 MUSIC_U；与网易云 MCP 用的是同一串。</p><button class="btn primary" type="button" id="ncm-login-cookie" style="width:100%">登录</button></div>'
+    +(nat()?'':('<div class="f-group" style="margin-top:14px"><label>跨域中转 <span class="lb-note">（选填；留空沿用 DIY → MCP 卡填的那条）</span></label><input id="ncm-proxy" autocomplete="off" placeholder="https://你的名字.workers.dev/?u=" value="'+esc(S.proxy||'')+'"></div><p class="hint" style="margin:-4px 0 8px">要用 GUIDE → DIY 里的新版 Worker 代码；想让网易云和 MCP 各走一个 Worker，就在这里单独填一条。当前生效：'+(proxyFor('https://music.163.com/')?'已配置':'未配置')+'</p>'))
+    +'<p class="hint" style="margin-top:12px">账号只存在本机，不进备份，不发给任何 AI；请求经你自己的跨域中转发往网易云，中转看得到 Cookie，务必只用自己部署的。VIP 曲目能不能完整播放取决于这个账号。</p>';
+  b.querySelectorAll('.ncm-tabs .btn').forEach(function(bt){bt.addEventListener('click',function(){b.querySelectorAll('.ncm-tabs .btn').forEach(function(x){x.classList.toggle('on',x===bt)});var t=bt.getAttribute('data-t');b.querySelectorAll('.ncm-pane').forEach(function(p){p.hidden=p.getAttribute('data-p')!==t});if(t==='qr')startQr();else stopQr()})});
+  var pxi=$i('ncm-proxy');if(pxi)pxi.addEventListener('change',function(){S.proxy=String(pxi.value||'').trim();save();T(S.proxy?'网易云中转已保存':'已清空，沿用 MCP 卡的中转');paint()});
+  $i('ncm-login-cookie').addEventListener('click',async function(){var c=pickCookie($i('ncm-cookie').value);if(!c.u){T('没识别到 MUSIC_U');return}await finishLogin(c.u,c.c)});
+  $i('ncm-sendcode').addEventListener('click',async function(){var ph=String($i('ncm-phone').value||'').trim();if(!/^\d{6,15}$/.test(ph)){T('先填手机号');return}var bt=this;bt.disabled=true;try{await wreq('/weapi/sms/captcha/sent',{cellphone:ph,ctcode:'86'});T('验证码已发送');var n=60;bt.textContent=n+'s';var tm=setInterval(function(){n--;if(n<=0){clearInterval(tm);bt.disabled=false;bt.textContent='发送验证码'}else bt.textContent=n+'s'},1000)}catch(e){bt.disabled=false;T(String((e&&e.message)||e))}});
+  $i('ncm-login-phone').addEventListener('click',async function(){var ph=String($i('ncm-phone').value||'').trim(),pw=String($i('ncm-pw').value||''),code=String($i('ncm-code').value||'').trim();if(!/^\d{6,15}$/.test(ph)){T('先填手机号');return}if(!pw&&!code){T('填密码，或发验证码后填验证码');return}var bt=this;bt.disabled=true;
+    try{var data=pw?{phone:ph,countrycode:'86',password:ibMd5(pw),rememberLogin:'true'}:{phone:ph,countrycode:'86',captcha:code,rememberLogin:'true'};var j=await wreq('/weapi/login/cellphone',data,{raw:true});
+      if(j.code!==200){T({400:'手机号格式不对',501:'账号不存在',502:'密码错误',503:'验证码错误',509:'密码错误次数过多，先用其它方式登录'}[j.code]||msgOf(j));bt.disabled=false;return}
+      var c=cookiesFrom(j);if(!c.u){T('登录成功但没拿到凭证，改用扫码或 Cookie');bt.disabled=false;return}await finishLogin(c.u,c.c)}catch(e){T(String((e&&e.message)||e));bt.disabled=false}});
+  startQr();
+}
+async function startQr(){stopQr();var st=$i('ncm-qrst'),cv=$i('ncm-qrc');if(!st||!cv)return;if(!canGo()){st.textContent=NO_TRANSPORT;st.onclick=function(){startQr()};return}st.textContent='正在生成二维码…';
+  try{var j=await wreq('/weapi/login/qrcode/unikey',{type:1});var key=j.unikey;if(!key)throw new Error('没拿到二维码 key');if(!$i('ncm-qrc'))return;qrKey=key;
+    var dark=document.body.classList.contains('theme-infernal');IBQR.draw(cv,'https://music.163.com/login?codekey='+key,200,dark?'#e6eefb':'#1a2740',dark?'#111b30':'#ffffff');st.textContent='等待扫码';
+    var since=Date.now();qrTmr=setInterval(async function(){if(qrKey!==key||!$i('ncm-qrc')){stopQr();return}if(Date.now()-since>330000){stopQr();st.textContent='二维码已过期，点击刷新';return}
+      try{var r=await wreq('/weapi/login/qrcode/client/login',{key:key,type:1},{raw:true});var code=r.code|0;
+        if(code===801)st.textContent='等待扫码';else if(code===802)st.textContent='已扫码，在网易云 App 里点确认'+(r.nickname?('（'+r.nickname+'）'):'');
+        else if(code===800){stopQr();st.textContent='二维码已过期，点击刷新'}
+        else if(code===803){stopQr();st.textContent='登录成功';var c=cookiesFrom(r);if(!c.u){st.textContent='登录成功但没拿到凭证，改用手机号或 Cookie';return}await finishLogin(c.u,c.c)}
+      }catch(e){}},2500);
+  }catch(e){st.textContent='二维码生成失败：'+String((e&&e.message)||e)+'，点击重试'}
+  st.onclick=function(){if(!qrTmr)startQr()};
+}
+async function finishLogin(u,c){S.cookie=u;S.csrf=c||S.csrf||'';save();try{await account();S.plsAt=0;save();T('已登录：'+S.nick);if(S.mode!=='ncm'){await setMode('ncm')}paint();paintSrc()}catch(e){S.cookie='';S.csrf='';save();T('登录无效：'+String((e&&e.message)||e));paint()}}
+/* ── 绑定 ── */
+function bind(){
+  var at=$i('ma-addtop');if(at)at.addEventListener('click',function(e){e.preventDefault();e.stopImmediatePropagation();openSrc()},true);
+  var a2=$i('pw-add2');if(a2){var n2=a2.cloneNode(true);a2.parentNode.replaceChild(n2,a2);n2.addEventListener('click',function(e){e.stopPropagation();if(on())openNcm();else if(window._pwPickFiles)window._pwPickFiles('audio')})}
+  var ml=$i('masrc-local');if(ml)ml.addEventListener('click',async function(){if(on()){await setMode('local');closeSheets();return}closeSheets();if(window._pwPickFiles)window._pwPickFiles('audio')});
+  var mn=$i('masrc-ncm');if(mn)mn.addEventListener('click',async function(){if(!canGo())T(NO_TRANSPORT);if(!on())await setMode('ncm');openNcm()});
+  var tl=$i('ncm-tolocal');if(tl)tl.addEventListener('click',async function(){await setMode('local');closeSheets()});
+  paintSrc();
+  if(on()){_pw.list=S.q;try{_pwPaint()}catch(e){}}
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bind);else bind();
+})();
+</script>
+<script id="ib-minipw">
+
+(function(){
+'use strict';
+var tmr=null;
+function el(){return document.getElementById('mini-pw')}
+function btn(){return document.getElementById('ma-minipw')}
+function isOn(){try{return !!(typeof _mp!=='undefined'&&_mp&&_mp.ui&&_mp.ui.miniPw)}catch(e){return false}}
+function cur(){try{return (typeof _pw!=='undefined'&&_pw&&_pw.idx>=0&&_pw.list&&_pw.list[_pw.idx])||null}catch(e){return null}}
+function line(rec,sec){var L=rec&&rec.lyrics,segs=L&&L.segments;if(!segs||!segs.length)return '';var t='';for(var i=0;i<segs.length;i++){var st=segs[i]&&segs[i].start;if(st==null)break;if(st<=sec)t=segs[i].text||'';else break}return String(t||'').replace(/\s+/g,' ').trim()}
+function musicOpen(){var m=document.getElementById('music-app');return !!(m&&m.classList.contains('open'))}
+function locked(){var lk=document.getElementById('lockscr');return !!(lk&&lk.offsetParent!==null)}
+function paint(){var b=el();if(!b)return;var onn=isOn();if(onn&&!tmr)start();var rec=cur();var vis=onn&&!!rec&&!musicOpen()&&!locked();
+  var bt=btn();if(bt)bt.classList.toggle('on',isOn());
+  if(!vis){if(!b.hidden)b.hidden=true;return}
+  if(b.hidden)b.hidden=false;
+  var a=null;try{a=_pwA()}catch(e){}var playing=!!(a&&!a.paused&&!a.ended);b.classList.toggle('playing',playing);
+  var t=document.getElementById('mpw-t'),s=document.getElementById('mpw-s'),l=document.getElementById('mpw-l');
+  var tt=String(rec.title||rec.name||'—'),ss=String(rec.artist||rec.album||'');
+  if(t&&t.textContent!==tt)t.textContent=tt;if(s&&s.textContent!==ss)s.textContent=ss;
+  var cv=b.querySelector('.mpw-disc b');if(cv){var c=String(rec.cover||'');if(cv.getAttribute('data-c')!==c){cv.setAttribute('data-c',c);cv.style.backgroundImage=c?('url("'+c.replace(/"/g,'%22')+'")'):'';b.classList.toggle('cov',!!c)}}
+  var ly=line(rec,(a&&a.currentTime)||0);if(l&&l.textContent!==ly){l.textContent=ly;l.classList.toggle('none',!ly)}
+}
+function start(){if(tmr)return;tmr=setInterval(paint,600)}
+function stop(){if(tmr){clearInterval(tmr);tmr=null}var b=el();if(b)b.hidden=true}
+async function toggle(){try{await loadMP()}catch(e){}_mp.ui=_mp.ui||{};_mp.ui.miniPw=!_mp.ui.miniPw;try{await saveMP()}catch(e){}
+  var bt=btn();if(bt)bt.classList.toggle('on',!!_mp.ui.miniPw);
+  if(_mp.ui.miniPw){start();toast('迷你播放器已开：离开 MUSIC 后留在屏幕左侧')}else{stop();toast('迷你播放器已关')}}
+function clampPos(x,y,b){var w=b.offsetWidth||182,h=b.offsetHeight||60,W=window.innerWidth,H=window.innerHeight;return{x:Math.max(4,Math.min(W-w-4,x)),y:Math.max(4,Math.min(H-h-4,y))}}
+function applyPos(){var b=el();if(!b)return;var p=null;try{p=_mp&&_mp.ui&&_mp.ui.miniPwPos}catch(e){}if(!p||typeof p.x!=='number'||typeof p.y!=='number')return;var W=window.innerWidth,H=window.innerHeight;var q=clampPos(Math.round(p.x*W),Math.round(p.y*H),b);b.style.left=q.x+'px';b.style.top=q.y+'px';b.style.bottom='auto'}
+function drag(b){var sx=0,sy=0,ox=0,oy=0,moved=false,pid=null;
+  b.addEventListener('pointerdown',function(e){if(e.button!==undefined&&e.button!==0)return;pid=e.pointerId;moved=false;sx=e.clientX;sy=e.clientY;var r=b.getBoundingClientRect();ox=r.left;oy=r.top;try{b.setPointerCapture(pid)}catch(x){}});
+  b.addEventListener('pointermove',function(e){if(pid===null||e.pointerId!==pid)return;var dx=e.clientX-sx,dy=e.clientY-sy;if(!moved&&Math.abs(dx)+Math.abs(dy)<7)return;moved=true;b.classList.add('drag');var q=clampPos(ox+dx,oy+dy,b);b.style.left=q.x+'px';b.style.top=q.y+'px';b.style.bottom='auto'});
+  function end(e){if(pid===null||(e&&e.pointerId!==pid))return;pid=null;try{b.releasePointerCapture(e.pointerId)}catch(x){}
+    if(moved){b.classList.remove('drag');var r=b.getBoundingClientRect();(async function(){try{await loadMP();_mp.ui=_mp.ui||{};_mp.ui.miniPwPos={x:r.left/window.innerWidth,y:r.top/window.innerHeight};await saveMP()}catch(x){}})();return}
+    b.hidden=true;try{if(window.openMusicApp)openMusicApp()}catch(x){}}
+  b.addEventListener('pointerup',end);b.addEventListener('pointercancel',function(e){pid=null;b.classList.remove('drag')});
+  window.addEventListener('resize',applyPos);
+}
+function bind(){
+  var bt=btn();if(bt)bt.addEventListener('click',function(e){e.stopPropagation();toggle()});
+  var b=el();if(b)drag(b);
+  try{if(typeof _pwPaint==='function'){var _pp0=_pwPaint;_pwPaint=function(){var r=_pp0.apply(this,arguments);try{paint()}catch(e){}return r}}}catch(e){}
+  (async function(){try{await loadMP()}catch(e){}applyPos();if(isOn())start();else paint()})();
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bind);else bind();
+})();
 </script>
 </body>
 </html>
