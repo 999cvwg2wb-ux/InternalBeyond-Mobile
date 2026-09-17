@@ -2217,7 +2217,7 @@ raf=requestAnimationFrame(frame);
           <p><strong>按日期查看</strong>：会话抽屉搜索框旁的日历按钮。月历上带圆点的日期表示当天有聊天记录，点日期即在消息区展示当天全部消息，可「前一天 / 后一天」翻页，「返回当前」回到正常视图；点年月标题可快速跳到任一有记录的月份。范围与搜索一致：当前主线或当前话题频道。<!-- v137-p 任务1 --></p>
           <p><strong>对话摘要</strong>：开启后旧消息自动压缩为摘要注入上下文，保持长对话的连贯性。设置在 API 页 → 全局；右上角菜单可查看、更新或清除当前对话的摘要，「立即更新」不受 10 条与冷却限制。摘要由 AI 写成一段笔记，挂在每条消息尾部作为后台参考，AI 不会向你复述；设置与摘要数据与电脑版共用。<strong>覆盖范围</strong>两种：「只保留近期 N 条」每次只发最近 N 条原文、其余全交给摘要，最省额度，此时该 AI 独立配置里的上下文条数不参与；「上下文条数之外」原文按该 AI 的上下文条数发送（群聊按执笔成员的群聊上下文条数），摘要只覆盖窗口之外更早的消息，细节最全、费用随窗口走。<strong>近期消息保留条数</strong>只在「只保留近期」模式生效，就是真正发给 AI 的原文条数。<strong>回看窗口</strong>决定一次摘要最多回看多少条旧消息和摘要字数上限（60 条 / 600 字、100 条 / 800 字、200 条 / 1200 字）；开启时早于窗口的消息不会被补记，之后每次只补新增部分。</p>
           <p>每攒够 10 条新消息更新一次，在 AI 回复落库后或打开对话时后台执行；旧摘要超过上限八成时先压缩再整合；生成失败后同一对话 10 分钟内不再自动重试。<strong>摘要专用 API</strong> 可指定廉价、不带思考的模型专门执笔（带思考链的模型会把输出预算先耗在思考上，容易空返），留空则跟随当前好友。摘要请求单独计费、不走提示缓存，聊天请求里的摘要不影响前缀缓存。怎么设：想节省额度——只保留近期 20～60 条，回看 100；想细节全——上下文条数之外，上下文 100～300 条，回看 100～200；执笔选不带思考的便宜模型。</p>
-          <p><strong>群聊</strong>：好友列表底部可创建群聊，选择成员后由各成员依次发言。每个成员只能以自己的身份发言，不会代答；静默成员仅在被 @名字 提到时参与。可选注入公开记忆与思考模式。与电脑版共用同一套群聊数据。</p>
+          <p><strong>群聊</strong>：好友列表底部可创建群聊，选择成员后由各成员依次发言。每个成员只能以自己的身份发言，不会代答；静默成员仅在被 @名字 提到时参与。可选注入公开记忆与思考模式。与电脑版共用同一套群聊数据。「自动发言」开着时，你说一句之后成员们会自己接着聊——导演模式开着就每轮随机挑一位，没开就按成员顺序轮流，最多 10 轮自动停下（输入条上方的小条显示轮数，点一下随时停），你再说一句才重新开始。</p>
           <p><strong>聊天记录管理</strong>：Data 页·备份，与电脑端一致——按对话多选导出 TXT 或删除（删除连带该对话的话题频道与摘要）。</p>
           <p><strong>归档</strong>：底部分区栏·归档，查看已归档的 API 档案并恢复。归档后聊天记录与 Auto Memory 全部保留。</p>
         </div>
@@ -3982,6 +3982,7 @@ self.addEventListener(&#x27;fetch&#x27;,function(e){
   <div class="tog"><div class="tog-m"><div class="tog-t">导演模式</div><div class="tog-s">开启后每轮只由 1～2 位成员接话：被 @ 或点名的必答，上一轮向你提问的优先，其余按「最久没说话」轮到；成员也可以选择这一轮不插话。关闭则全员依次回复。</div></div><div class="sw2" id="grp-dir"></div></div>
   <div class="tog"><div class="tog-m"><div class="tog-t">发言顺序随机</div><div class="tog-s">每轮打乱接话顺序，不再固定由第一位成员定调。</div></div><div class="sw2" id="grp-shuf"></div></div>
   <div class="tog"><div class="tog-m"><div class="tog-t">冷场自燃</div><div class="tog-s">停留在群聊页且约 5 分钟没人说话时，随机一位成员主动起个话头；连续两次没人接就停下，直到你再开口。通话进行中不触发。</div></div><div class="sw2" id="grp-idle"></div></div>
+  <div class="tog"><div class="tog-m"><div class="tog-t">自动发言</div><div class="tog-s">你说一句之后，成员们自己接着聊：开着导演模式就每轮随机挑一位，没开就按成员顺序轮流；最多 10 轮自动停下，你再说一句才会重新开始。输入条上方会显示轮数，点一下随时停。通话进行中不触发。</div></div><div class="sw2" id="grp-auto"></div></div><!-- v250-p：自动发言 -->
   <div class="sheet-btns"><button class="btn danger" id="grp-del" style="display:none">删除</button><button class="btn" data-close="1">取消</button><button class="btn primary" id="grp-save">保存</button></div>
 </div>
 
@@ -5730,7 +5731,7 @@ $('theme-drop').addEventListener('click',()=>applyTheme(!document.body.classList
 
 /* ═══════════ 抽屉 · 导航 · 底部分区坞 ═══════════ */
 const TITLES={guide:'Guide',profile:'Home',blog:'Blog',chat:'Chat',letters:'Letters',memory:'Memory',api:'API',diy:'DIY',icode:'ICode',data:'Data',visual:'Visual',beyond:'Internet Beyond'};/* v121-p：#4.3 Circle 页顶栏全名 */
-const IC={heart:'<path d="M12 20.4C7.3 16.8 3.8 13.7 3.8 10.2a4.5 4.5 0 0 1 8.2-2.5 4.5 4.5 0 0 1 8.2 2.5c0 3.5-3.5 6.6-8.2 10.2z"/>',/* v121-p：#4.2 Presence 分区心形页签 */
+const IC={grps:'<path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h6A2.5 2.5 0 0 1 15 6.5V10a2.5 2.5 0 0 1-2.5 2.5H8.8L6 14.8V12.5A2.5 2.5 0 0 1 4 10z"/><path d="M16.8 8.5h.7A2.5 2.5 0 0 1 20 11v3.5a2.5 2.5 0 0 1-2.5 2.5H17v2.3l-3-2.3h-2.5"/>',/* v252-p：Chat 下栏群聊改双气泡 */heart:'<path d="M12 20.4C7.3 16.8 3.8 13.7 3.8 10.2a4.5 4.5 0 0 1 8.2-2.5 4.5 4.5 0 0 1 8.2 2.5c0 3.5-3.5 6.6-8.2 10.2z"/>',/* v121-p：#4.2 Presence 分区心形页签 */
   set:'<path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-1.8-.3 1.6 1.6 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1A1.6 1.6 0 0 0 9 19.4a1.6 1.6 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0 .3-1.8 1.6 1.6 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1A1.6 1.6 0 0 0 4.6 9a1.6 1.6 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.6 1.6 0 0 0 1.8.3H9a1.6 1.6 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.6 1.6 0 0 0 1 1.5 1.6 1.6 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0-.3 1.8V9a1.6 1.6 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1z"/>',
   am:'<path d="M12 4a4 4 0 0 1 4 4v1a3.5 3.5 0 0 1 2 6.3V17a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4v-1.7A3.5 3.5 0 0 1 8 9V8a4 4 0 0 1 4-4z"/>',
   cal:'<rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/>',
@@ -5765,7 +5766,7 @@ const DOCKS={
   profile:[{k:'cal',t:'Desk',i:'desk'},{k:'card',t:'Space',i:'user'},{k:'api',t:'Friends',i:'frd'},{k:'set',t:'设置',i:'set',act:'set'}],/* v84-m r5：主页下栏 Profile→Space、Beyond→Circle（任务 3） */
   blog:[{k:'list',t:'日志',i:'book'},{k:'new',t:'写日志',i:'note',act:'blognew'},{k:'coread',t:'共读间',i:'open',act:'coread'},{k:'diary',t:'密码日记本',i:'lock',act:'blogdiary'}],/* v50-m：Blog 移植 */
   letters:[{k:'box',t:'信箱',i:'note'}],
-  chat:[{k:'list',t:'对话',i:'list'},{k:'grp',t:'群聊',i:'list'},{k:'fav',t:'收藏夹',i:'star',act:'fav'},{k:'arch',t:'归档',i:'arch'}],/* v194-p：+收藏夹（act 直开收藏页，不切分区） *//* v58-m：老按日「记录」分区移除，聊天记录管理统一在 Data·备份（照电脑端） *//* v49i-m：群聊独立分类 */
+  chat:[{k:'list',t:'对话',i:'list'},{k:'grp',t:'群聊',i:'grps'},{k:'fav',t:'收藏夹',i:'star',act:'fav'},{k:'arch',t:'归档',i:'arch'}],/* v194-p：+收藏夹（act 直开收藏页，不切分区） *//* v58-m：老按日「记录」分区移除，聊天记录管理统一在 Data·备份（照电脑端） *//* v49i-m：群聊独立分类 */
   memory:[{k:'lib',t:'记忆库',i:'lib'},{k:'am',t:'Auto Memory',i:'am'}],
   api:[{k:'list',t:'独立配置',i:'frd'},{k:'global',t:'全局设置',i:'globe'},{k:'presence',t:'Presence',i:'heart'},{k:'tools',t:'多模态',i:'tool'},{k:'data',t:'数据',i:'io',act:'gotodata'}],
   diy:[{k:'mcp',t:'MCP',i:'mcp'},{k:'pay',t:'AI付',i:'pay'},{k:'tool',t:'外部工具',i:'tool'}],/* v154-p：#1 AI付 自 MCP 分区拎出，独立坞位居中 */
@@ -9075,7 +9076,7 @@ async function sendMsg(){
   _pendImgs=[];_pendFiles=[];window._ibPendStk=null;drawAttach();
   setQuote(null);
   pinBottom();
-  if(cfg._group)genReplyGroup(cfg);else genReply(cfg);
+  if(cfg._group){try{_gAutoReset(cfg)}catch(e){}genReplyGroup(cfg)}else genReply(cfg);/* v250-p：用户开口＝自动发言重新计数 */
 }
 
 async function getSummarySettingsM(){
@@ -10435,7 +10436,7 @@ function openCvDrawer(){
     seal:'<svg viewBox="0 0 24 24"><path d="M4 12h16"/><circle cx="12" cy="12" r="3.4"/></svg>',
     api:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.1"/><path d="M12 3.5v3M12 17.5v3M3.5 12h3M17.5 12h3M6 6l2.1 2.1M15.9 15.9 18 18M18 6l-2.1 2.1M8.1 15.9 6 18"/></svg>',
     pf:'<svg viewBox="0 0 24 24"><path d="M12 3.8 14.1 8.6l5.1.5-3.9 3.4 1.2 5-4.5-2.7-4.5 2.7 1.2-5-3.9-3.4 5.1-.5z"/></svg>',/* v127-p：#1 专属聊天背景入口图标 */
-    grp:'<svg viewBox="0 0 24 24"><circle cx="9" cy="9" r="3.2"/><path d="M3.5 19a5.5 5.5 0 0 1 11 0"/><circle cx="17" cy="10" r="2.4"/><path d="M15.5 19a4.6 4.6 0 0 1 5-4.4"/></svg>',
+    grp:'<svg viewBox="0 0 24 24"><circle cx="12" cy="6.8" r="2.6"/><circle cx="6.4" cy="16.6" r="2.6"/><circle cx="17.6" cy="16.6" r="2.6"/><path d="M12 9.4v3.1M8.5 15.2l1.9-2.5M15.5 15.2l-1.9-2.5"/></svg>',/* v293-a / v251-p：群聊图标改三点相连，不再与实时对话撞 */
     sum:'<svg viewBox="0 0 24 24"><path d="M6 3.5h9L19 8v12.5H6z"/><path d="M14 3.5V8h5M9 12h7M9 15.5h5"/></svg>',
     am:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 12V6.2A5.8 5.8 0 0 1 17.4 12z"/></svg>'};
   const ops=$('cs-ops')||$('tp-ops');ops.innerHTML='';
@@ -10504,7 +10505,7 @@ async function openGroupEdit(g){
   $('grp-notice').value=g?(g.notice||''):'';/* v173-p：群公告 */
   sw2($('grp-mem'),!!(g&&g.memoryEnabled));
   sw2($('grp-think'),!!(g&&g.thinkingEnabled));
-  sw2($('grp-dir'),!!(g&&g.director));sw2($('grp-shuf'),!!(g&&g.shuffle));sw2($('grp-idle'),!!(g&&g.idleMin));/* 手机端：导演模式 / 顺序随机 / 冷场自燃 */
+  sw2($('grp-dir'),!!(g&&g.director));sw2($('grp-shuf'),!!(g&&g.shuffle));sw2($('grp-idle'),!!(g&&g.idleMin));sw2($('grp-auto'),!!(g&&g.autoTalk));/* 手机端：导演模式 / 顺序随机 / 冷场自燃 */
   $('grp-del').style.display=g?'':'none';
   await loadMP();
   _grpAva=(g&&_mp.groupAva&&_mp.groupAva[g.id])||'';
@@ -10517,7 +10518,7 @@ $('grp-ava-pick').addEventListener('click',()=>{_imgTarget='grp-ava';$('img-file
 $('grp-ava-clear').addEventListener('click',()=>{_grpAva='';setAvaEl($('grp-ava'),'',$('grp-name').value||'群');$('grp-ava-clear').style.display='none'});
 $('grp-mem').addEventListener('click',()=>sw2($('grp-mem'),!$('grp-mem').classList.contains('on')));
 $('grp-think').addEventListener('click',()=>sw2($('grp-think'),!$('grp-think').classList.contains('on')));
-['grp-dir','grp-shuf','grp-idle'].forEach(function(id){$(id).addEventListener('click',function(){sw2($(id),!$(id).classList.contains('on'))})});/* 手机端 */
+['grp-dir','grp-shuf','grp-idle','grp-auto'].forEach(function(id){$(id).addEventListener('click',function(){sw2($(id),!$(id).classList.contains('on'))})});/* 手机端 */
 $('grp-save').addEventListener('click',async()=>{
   const name=$('grp-name').value.trim();
   if(!name){toast('请输入群聊名称');return}
@@ -10527,7 +10528,7 @@ $('grp-save').addEventListener('click',async()=>{
   g.notice=$('grp-notice').value.trim();/* v173-p：群公告 */
   g.memoryEnabled=$('grp-mem').classList.contains('on');
   g.thinkingEnabled=$('grp-think').classList.contains('on');
-  g.director=$('grp-dir').classList.contains('on');g.shuffle=$('grp-shuf').classList.contains('on');g.idleMin=$('grp-idle').classList.contains('on')?5:0;/* 手机端 */
+  g.director=$('grp-dir').classList.contains('on');g.shuffle=$('grp-shuf').classList.contains('on');g.idleMin=$('grp-idle').classList.contains('on')?5:0;g.autoTalk=$('grp-auto').classList.contains('on');/* v250-p *//* 手机端 */
   try{await dbPut('groups',g)}catch(e){toast('保存失败');return}
   try{await loadMP();_mp.groupAva=_mp.groupAva||{};if(_grpAva)_mp.groupAva[g.id]=_grpAva;else delete _mp.groupAva[g.id];await saveMP()}catch(e){}
   closeSheets();
@@ -10603,6 +10604,21 @@ setInterval(function(){
     var sil={};(g.mentionOnly||[]).forEach(function(id){sil[id]=1});var open=members.filter(function(m){return !sil[m.id]&&m.apiKey});if(!open.length)return;
     _gIdleLastFire=Date.now();genReplyGroup(c,{only:[open[Math.floor(Math.random()*open.length)]],idle:mins});
   }catch(e){}},20000);
+var _gAuto={key:'',n:0,idx:-1,timer:null,gen:0};
+function _gAutoKey(c){try{return _keyOf(c.id,_activeThread?_activeThread.id:'')}catch(e){return String((c&&c.id)||'')}}
+function _gAutoPill(txt){var p=document.getElementById('gauto-pill');if(!txt){if(p)p.style.display='none';return}if(!p){p=document.createElement('button');p.id='gauto-pill';p.type='button';p.addEventListener('click',function(){_gAutoStop('已停止自动发言，你说一句再开')});document.body.appendChild(p)}p.textContent=txt;p.style.display=''}
+function _gAutoStop(msg){_gAuto.gen++;if(_gAuto.timer){clearTimeout(_gAuto.timer);_gAuto.timer=null}_gAuto.n=10;_gAutoPill('');if(msg)toast(msg)}
+function _gAutoReset(c){_gAuto.gen++;if(_gAuto.timer){clearTimeout(_gAuto.timer);_gAuto.timer=null}_gAuto.key=_gAutoKey(c);_gAuto.n=0;_gAuto.idx=-1;_gAutoPill('')}
+function _gAutoAfter(pcfg,g,members,sil,opt,ac){if(!g||!g.autoTalk)return;if(opt&&opt.idle)return;if(ac&&ac.signal&&ac.signal.aborted){_gAutoPill('');return}
+  var key=_gAutoKey(pcfg);if(_gAuto.key!==key)return;if(!(_activeCfg&&_activeCfg.id===pcfg.id))return;
+  if(window._IBCALL&&_IBCALL.active&&_IBCALL.active())return;
+  if(_gAuto.n>=10){_gAutoPill('');toast('自动发言 10 轮已停，你说一句再开');return}
+  var open=members.filter(function(c){return c&&c.apiKey&&!sil.has(c.id)});if(!open.length)return;
+  var lastId=null;for(var i=_msgs.length-1;i>=0;i--){if(_msgs[i].role==='assistant'&&_msgs[i].senderId){lastId=_msgs[i].senderId;break}}
+  var who;if(g.director){var pool=open.length>1?open.filter(function(c){return c.id!==lastId}):open;who=pool[Math.floor(Math.random()*pool.length)]}else{_gAuto.idx=(_gAuto.idx+1)%open.length;who=open[_gAuto.idx];if(open.length>1&&who.id===lastId){_gAuto.idx=(_gAuto.idx+1)%open.length;who=open[_gAuto.idx]}}
+  var gen=++_gAuto.gen,n=_gAuto.n+1;_gAutoPill('自动发言 '+n+' / 10 · 点此停止');
+  var fire=function(){_gAuto.timer=null;if(gen!==_gAuto.gen)return;if(!(_activeCfg&&_activeCfg.id===pcfg.id)){_gAutoPill('');return}if(_sending||_sendKeys.has(key)){_gAuto.timer=setTimeout(fire,1500);return}_gAuto.n=n;genReplyGroup(pcfg,{only:[who],auto:true,autoN:n})};
+  _gAuto.timer=setTimeout(fire,2200+Math.random()*1800)}
 async function genReplyGroup(pcfg,opt){
   const g=pcfg._group;if(!g)return;
   if(_sendKeys.has(_keyOf(pcfg.id,_activeThread?_activeThread.id:'')))return;
@@ -10663,7 +10679,7 @@ async function genReplyGroup(pcfg,opt){
         const mapped=combined.map(m=>{
           if(m.role==='user'){
             let _mc0=String(m.content||''),_pf0='';if(/^\[(?:语音|视频)通话\] /.test(_mc0)){_pf0=_mc0.slice(0,7);_mc0=_mc0.slice(7);if(m.callTone){var _tn0=_vmToneNatural(m.callTone);if(_tn0)_pf0=_pf0.slice(0,5)+'｜声学语气参考: '+_tn0+'] '}}
-            let uc=_pf0+'['+userLabel+'] '+((m.quote&&m.quote.text)?('[引用 '+(m.quote.name||'对方')+'的消息：'+String(m.quote.text||'').slice(0,300)+']\n'):'')+_mc0;/* v208-p：群聊历史补引用前缀（与 1对1 buildHist、电脑端 v97 同格式） */
+            let uc=_pf0+'['+userLabel+'] '+((m.quote&&m.quote.text)?('[引用 '+(m.quote.name||'对方')+'的消息：'+String(m.quote.text||'').slice(0,300)+']\n'):'')+(m.sticker?('（表情包「'+String(m.sticker.name||'')+'」'+(m.sticker.desc?('：'+String(m.sticker.desc)):'')+(m.sticker.use?('｜用法：'+String(m.sticker.use)):'')+'）'+(_mc0?'\n':'')):'')+_mc0;/* v250-p：用户在群里发的表情包，同 1对1 只给一句叙述 *//* v208-p：群聊历史补引用前缀（与 1对1 buildHist、电脑端 v97 同格式） */
             if(m.files&&m.files.length)m.files.forEach(f=>{uc+='\n\n[文件上传: '+(f.name||'附件')+']\n'+_capFileTextM(f.text,f.name)});
             if(/^\[视频通话快照\]/.test(_mc0))uc='[视频通话快照] 这张图是 '+(m.snapBy||(m.snap==='ai'?'某位成员':userLabel))+' 在群视频通话中拍下的镜头画面';/* 手机端：群视频快照按拍摄者署名 */
             const _sv9=!_noVisionM(cfg);let _im9=(_sv9&&Array.isArray(m.images))?m.images.map(x=>x&&(x.dataUrl||x.url)).filter(Boolean):[];
@@ -10671,7 +10687,7 @@ async function genReplyGroup(pcfg,opt){
             return _im9.length?{role:'user',content:uc,images:_im9}:{role:'user',content:uc};
           }
           if((m.senderName||'')===selfName)return{role:'assistant',content:_wsStubHistoryM(sanitizeGroupReply(m.content,selfName),m.wsResults)};
-          return{role:'user',content:'['+(m.senderName||'AI')+'] '+_wsStubHistoryM((m.content||''),m.wsResults)};
+          return{role:'user',content:'['+(m.senderName||'AI')+'] '+_wsStubHistoryM((m.content||''),m.wsResults).replace(/<ws_sticker\b[^>]*?name="([^"]*)"[^>]*?\/?>(?:\s*<\/ws_sticker\s*>)?/gi,'（发了表情包「$1」）')};/* v250-p：其他成员发的表情包在历史里改成一句叙述（自己发的标签原样留） */
         });
         const messages=collapseSameRoleM(mapped);
         if(!messages.length){aiEl.remove();continue}
@@ -10696,7 +10712,8 @@ async function genReplyGroup(pcfg,opt){
         if(amBlock&&amBlock.sys)sysContent+='\n\n'+amBlock.sys;/* 档案本体挪到末尾第二块 *//* v223-p */
         const tails=[];
         tails.push('当前时间：'+new Date().toLocaleString('zh-CN',{year:'numeric',month:'long',day:'numeric',weekday:'long',hour:'2-digit',minute:'2-digit'})+'。');/* v90-m 拍板④：逐轮时间戳（Tail 首行，与电脑端同格式；在末条用户消息内、零缓存代价） */
-        if(opt&&opt.idle)tails.push('群里已经安静了约 '+opt.idle+' 分钟，没有人说话。你主动起个话头：接着最近的话题往下说，或者随口聊点别的，一两句就好，自然一点，不要总结、不要客套。');/* 手机端：冷场自燃（末条用户消息尾部，零缓存代价） */
+        if(opt&&opt.idle)tails.push('群里已经安静了约 '+opt.idle+' 分钟，没有人说话。你主动起个话头：接着最近的话题往下说，或者随口聊点别的，一两句就好，自然一点，不要总结、不要客套。');
+        if(opt&&opt.auto)tails.push('现在是成员之间自由聊天的一轮（第 '+opt.autoN+' / 10 轮），'+userLabel+' 没有新消息、只是看着：接着上面的话往下说——回应其他成员，或者聊点新的，一两句到三四句都行；别每句都问'+userLabel+'，也别总结、别客套。');/* v250-p：自动发言（末条用户消息尾部，零缓存代价） *//* 手机端：冷场自燃（末条用户消息尾部，零缓存代价） */
         if(gSum)tails.push('【对话历史备忘（此为后台参考信息，不要向对方复述或提及此段内容的存在）】\n'+gSum);
         if(g.memoryEnabled&&mems.length){try{const mb=buildMemBlock(mems,cfg.id,await loadMS(),undefined,undefined,lastTxt);if(mb)tails.push(mb)}catch(e){}}/* v88-m：群聊同样按当前消息加权 */
         if(amBlock&&amBlock.dyn)tails.push(amBlock.dyn);/* v223-p */
@@ -10710,6 +10727,7 @@ async function genReplyGroup(pcfg,opt){
         await loadMP();const pa=mpAi(cfg);
         
         if(await _askGlobalGetM())sysContent+=_ASK_INSTR_BLOCK;/* v66-m：与电脑端共用 askGlobal */
+        try{var _stkG9=window._ibStkBlockM?window._ibStkBlockM(cfg):'';if(_stkG9)sysContent+='\n\n'+_stkG9}catch(e){}/* v250-p：表情包块进群聊（开着且当前预设有完整条目时，每位发言成员都带） */
         try{if(cfg&&cfg.beyond&&cfg.beyond.on&&await _ibfMaster())sysContent+='\n\n'+await _ibBeyondInstrM(cfg)}catch(e){}
         /* v89-m：群聊联网搜索边界已按用户决定移除 */
         try{if(window._IBCALL&&_IBCALL.active&&_IBCALL.active()){const _clSg=await loadCALL();if(_clSg&&_clSg.on!==false){sysContent+=_CALL_INSTR_BLOCK;if(_IBCALL.vid&&_IBCALL.vid())sysContent+=_VID_INSTR_BLOCK+(_noVisionM(cfg)?_VID_NOVIS_NOTE:'')}}}catch(e){}/* 手机端：群通话进行中注入通话协议段（与 1对1 同一份常量块，随开打 / 挂断整块起挂） */
@@ -10752,6 +10770,7 @@ async function genReplyGroup(pcfg,opt){
     try{window._ibAppTailM=null}catch(e){}/* v189-p：APP 隐藏上下文一轮即焚 */
     _sendKeys.delete(myKey);delete _acMap[myKey];
     if(sameConvG()){_sending=false;sendBtnState(false);_ac=null;pinBottom()}
+    try{_gAutoAfter(pcfg,g,members,sil,opt,myAc)}catch(e){}/* v250-p：一轮收尾后安排下一轮自动发言 */
     setTimeout(()=>{
       const util=pickGroupUtilCfg(g);
       if(util)maybeSummarizeM(Object.assign({},util,{id:g.id,sealTimestamp:0,_sumMember:util.id}),null).catch(()=>{});/* 手机端：带上执笔成员 id，ctx 模式按其群聊上下文条数取保留数 */
@@ -12687,7 +12706,7 @@ function _orientApply(){try{
   setTimeout(function(){try{if(window.IBNative&&window.IBNative.available){var _bg=$('pres-bg');var _row=_bg&&_bg.closest('.tog');if(_row)_row.style.display=''}}catch(e){}},1200);/* v116-p：壳内显露「后台 Presence（系统级）」开关（桥在文末激活，故延时探测；浏览器 / PWA 保持隐藏） */
 })();
 function _vidQNormM(v){v=String(v==null?'m':v);if(v==='384')return 'l';if(v==='768')return 'h';if(v==='512')return 'm';return (v==='l'||v==='h')?v:'m'}/* 画质档位兼容电脑端备份里的 384/512/768 写法 */
-var IB_VER='v248-p',IB_VER_DATE='2026-09-11';
+var IB_VER='v254-p',IB_VER_DATE='2026-09-11';
 (function _appVerDraw(){var e=document.getElementById('app-ver');if(e)e.textContent='InternalBeyond Mobile '+IB_VER+'（'+IB_VER_DATE+'）'})();
 function _ibVeilHeal(){try{setTimeout(function(){try{var v=document.getElementById('lk-preveil');if(!v||v.classList.contains('off'))return;var lk=document.getElementById('lockscr');if(lk){_lkVeilOff();return}if(localStorage.getItem('ib_lockOn')==='1')return;_lkVeilOff()}catch(e){}},1600)}catch(e){}}/* v246-p：启动完成后仍盖幕的静默自愈 */
 function _lkVeilOff(){try{window._ibVeilOff=true;var v=document.getElementById('lk-preveil');if(v){v.classList.add('off');setTimeout(function(){try{v.remove()}catch(e){}},420)}}catch(e){}}/* fix-r4：预遮罩揭幕（任务 8） */
@@ -14439,7 +14458,7 @@ async function sendVoiceMsg(v){
   box.appendChild(buildMsgEl(um,_msgs[_msgs.length-2]||null));
   try{_tmCollapseAll()}catch(e){}/* v97-m 任务3 */
   box.scrollTop=box.scrollHeight;
-  if(cfg._group)genReplyGroup(cfg);else genReply(cfg);
+  if(cfg._group){try{_gAutoReset(cfg)}catch(e){}genReplyGroup(cfg)}else genReply(cfg);/* v250-p：用户开口＝自动发言重新计数 */
 }
 function _voiceApiLine(v){var d=Math.max(1,Math.round((v&&v.duration)||1));var t=((v&&v.transcript)||'').trim();var tn=(v&&v.tone)?('｜声学语气参考: '+v.tone):'';return '[语音消息 '+d+'秒'+tn+'] '+(t||'（语音内容未能自动识别）')}
 
@@ -17674,6 +17693,7 @@ body.ib-reduce #fav-ov .fav-paper,body.ib-reduce #fav-ov .fav-card{background:#f
 #fav-ov .fav-wave{flex:1;display:flex;align-items:center;justify-content:space-between;height:18px}#fav-ov .fav-wave i{width:2px;border-radius:2px;background:var(--acc);opacity:0.6;height:30%}#fav-ov .fav-wave i:nth-child(3n){height:85%}#fav-ov .fav-wave i:nth-child(3n+1){height:55%}#fav-ov .fav-wave i:nth-child(5n){height:100%}#fav-ov .fav-wave i:nth-child(7n){height:40%}
 #fav-ov .fav-voice b{flex:none;font-family:var(--disp);font-weight:400;font-size:0.68rem;letter-spacing:0.06em;color:var(--tx3)}#fav-ov .fav-vt{font-family:'Noto Serif SC',var(--serif),serif;font-size:0.84rem;line-height:1.8;color:var(--tx);margin-bottom:8px;padding-top:6px;border-top:1px dashed rgba(120,150,200,0.3)}
 #fav-ov .fav-empty{padding:28px 12px;text-align:center;font-size:0.8rem;color:var(--tx3);line-height:1.8}
+#gauto-pill{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(96px + var(--sab));z-index:36;padding:7px 14px;border-radius:999px;border:1px solid var(--glass-line);background:var(--glass);color:var(--tx2);font-size:0.72rem;letter-spacing:0.04em;font-family:inherit;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:var(--glass-shadow);cursor:pointer}/* v250-p：自动发言轮数小条 */
 #fav-ov .fav-sq{flex:none;height:28px;width:28px;margin-right:-8px;display:flex;align-items:center;border:1px solid rgba(175,195,228,0.32);border-radius:999px;background:rgba(255,255,255,0.14);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);overflow:hidden;transition:width 0.3s ease,border-color 0.3s}#fav-ov .fav-sq.open{width:min(46vw,190px);border-color:rgba(120,168,222,0.6)}body.theme-infernal #fav-ov .fav-sq{background:rgba(20,28,52,0.4);border-color:rgba(90,116,168,0.42)}#fav-ov .fav-sq-b{flex:none;width:26px;height:26px;border:none;background:none;color:var(--tx2);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0}#fav-ov .fav-sq-b svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round}#fav-ov #fav-sq-in{flex:1;min-width:0;border:none;background:none;outline:none;color:var(--tx);font-size:0.78rem;padding:0 10px 0 0;opacity:0;transition:opacity 0.25s}#fav-ov .fav-sq.open #fav-sq-in{opacity:1}#fav-ov #fav-sq-in::placeholder{color:var(--tx3)}/* v246-p：收藏夹搜索胶囊 */
 
 .sb-meet{padding:18px 12px 16px;text-align:center}#sec-profile-cal #sb-meet:not(.card){background:transparent!important;border-color:transparent!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}#sec-profile-cal #sb-meet.card,body.theme-infernal #sec-profile-cal #sb-meet.card{box-shadow:none!important}#sec-profile-cal #sb-meet.card::before,#sec-profile-cal #sb-meet.card::after{display:none!important}/* v199-p：整卡拉高；玻璃卡款去掉投影方框与高光层（id 选择器压过挂件材质 mat() 的 !important 规则） */.sb-meet .sbh-meet{position:relative}
@@ -18266,7 +18286,7 @@ body.theme-infernal .vrec-card{background:rgba(18,26,48,0.94);border-color:rgba(
 .tk-ex{display:grid;grid-template-columns:auto 1fr auto;grid-template-rows:auto auto;gap:0 8px;align-items:baseline;padding:6px 2px;border-bottom:1px solid var(--line);font-size:0.7rem;color:var(--tx3)}
 .tk-ex:last-child{border-bottom:none}
 .tk-ex .t{grid-row:1;grid-column:1;font-variant-numeric:tabular-nums;white-space:nowrap}
-.tk-ex .m{grid-row:1;grid-column:2;min-width:0;color:var(--tx2);overflow-wrap:anywhere;line-height:1.3}
+.tk-ex .m{grid-row:1;grid-column:2;min-width:0;color:var(--tx);overflow-wrap:anywhere;line-height:1.35;background:none!important;border:none!important;box-shadow:none!important;padding:0!important;border-radius:0!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;font-size:0.76rem}.tk-ex .t{color:var(--tx3)}.tk-ex .c{font-variant-numeric:tabular-nums}/* v253-p：模型名不再套气泡，纯文字两行 */
 .tk-ex .c{grid-row:1;grid-column:3;color:var(--tx2);white-space:nowrap;text-align:right}
 .tk-ex .d{grid-row:2;grid-column:1/4;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:0.66rem;padding-top:1px}
 
@@ -18774,7 +18794,7 @@ body.theme-infernal .ma-btn svg{filter:drop-shadow(0 1px 0 rgba(255,255,255,0.16
 .ca-ava.site{background-color:#fff}
 body.theme-infernal .ca-ava{box-shadow:0 0 0 1px rgba(228,234,241,.28),0 0 0 4.5px rgba(203,211,221,.08),0 0 0 5.5px rgba(216,223,232,.15),0 10px 22px rgba(0,0,0,.42),inset 0 1px 1px rgba(255,255,255,.13)}/* v143-p：#2 暗色同款玻璃环 */
 
-.ca-duo{--caL:#a9bcd6;--caG:#7f99ba;--caGs:rgba(127,153,186,.3);--caHi:#fff;--caHaloO:.16;--caTubeO:.4;--caBaseO:.85;--caLiqO:.3;--caTailO:.38;--caHeadO:.85;--caGlintO:.8}
+.ca-duo{--caL:#c6dbef;--caG:#a3c4e6;--caGs:rgba(163,196,230,.26);/* v254-p：再降一档饱和（用户：喜欢低饱和） *//* v253-p：明亮态从灰湖蓝改微低饱和天蓝（蓝调不带绿） */--caHi:#fff;--caHaloO:.16;--caTubeO:.4;--caBaseO:.85;--caLiqO:.3;--caTailO:.38;--caHeadO:.85;--caGlintO:.8}
 body.theme-infernal .ca-duo{--caL:#aab5c2;--caG:#e9eef4;--caGs:rgba(224,231,239,.4);--caHi:#fff;--caHaloO:.09;--caTubeO:.15;--caBaseO:.68;--caLiqO:.15;--caTailO:.26;--caHeadO:.92;--caGlintO:.42}/* v144-p：#2 暗色沿用 v143-p 观感数值，一行不动 */
 .ca-duo .ca-ava{z-index:1}
 .ca-orbit{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;display:block}/* v142-p：#2 轨道盘双层 SVG */
@@ -18807,7 +18827,7 @@ body.theme-infernal .ca-duo{--caL:#aab5c2;--caG:#e9eef4;--caGs:rgba(224,231,239,
 .ca-meta2 em.today{color:var(--acc);background:color-mix(in srgb,var(--acc) 10%,transparent)}
 .ca-hbar{position:relative;width:min(100%,220px);height:6px;border-radius:99px;margin-top:12px;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.30),rgba(255,255,255,.04) 55%),color-mix(in srgb,var(--tx3) 16%,transparent);border:1px solid rgba(255,255,255,.42);box-shadow:inset 0 1px 2px rgba(30,52,92,.16),inset 0 -1px 1px rgba(255,255,255,.30),0 1px 0 rgba(255,255,255,.35)}
 body.theme-infernal .ca-hbar{background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,.02) 55%),rgba(10,18,34,.42);border-color:rgba(190,214,246,.20);box-shadow:inset 0 1px 2px rgba(0,0,0,.42),inset 0 -1px 1px rgba(255,255,255,.08),0 1px 0 rgba(255,255,255,.05)}
-.ca-hbar i{position:relative;display:block;height:100%;border-radius:inherit;overflow:hidden;background:linear-gradient(180deg,#c8d5e6,#a4b8d2 58%,#8ba3c2);box-shadow:inset 0 1px 0 rgba(255,255,255,.6),inset 0 -1px 1px rgba(46,62,88,.22)}/* v146-p：#1 液柱随「晨雾蓝」同族回暖 */
+.ca-hbar i{position:relative;display:block;height:100%;border-radius:inherit;overflow:hidden;background:linear-gradient(180deg,#e6eff9,#cbdcf0 58%,#aec6e3);box-shadow:inset 0 1px 0 rgba(255,255,255,.6),inset 0 -1px 1px rgba(46,62,88,.22)}/* v146-p：#1 液柱随「晨雾蓝」同族回暖 */
 body.theme-infernal .ca-hbar i{background:linear-gradient(180deg,#e0e6ed,#b8c3d0 58%,#9ba9ba);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),inset 0 -1px 1px rgba(18,28,44,.35)}/* v145-p：#2 暗色液柱银灰款 *//* 渐变液柱＋内高光＝管内液体 */
 .ca-hbar i:after{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(105deg,transparent 20%,rgba(255,255,255,.55) 45%,rgba(255,255,255,.12) 55%,transparent 75%);background-size:220% 100%;animation:caBarSheen 3.6s ease-in-out infinite;mix-blend-mode:screen}/* 周期斜向流光 */
 @keyframes caBarSheen{0%{background-position:130% 0}55%,100%{background-position:-90% 0}}
@@ -24296,8 +24316,8 @@ function T(t){try{toast(t)}catch(e){}}
 document.head.appendChild(st)})();
 /* ── 颜文字 ── */
 var kao={mine:{},cat:CATS[0],loaded:false};
-async function kaoLoad(){if(kao.loaded||!dbReady())return;try{var r=await dbGet('apiSettings','ib_kao');if(r&&r.v&&typeof r.v==='object')kao.mine=r.v}catch(e){}kao.loaded=true}
-async function kaoSave(){try{await dbPut('apiSettings',{id:'ib_kao',v:kao.mine,updated:Date.now()})}catch(e){T('保存失败')}}
+async function kaoLoad(){if(kao.loaded||!dbReady())return;try{var r=await dbGet('apiSettings','ib_kao');if(r&&r.v&&typeof r.v==='object')kao.mine=r.v}catch(e){return}kao.loaded=true}/* 读库失败不标已读 */
+async function kaoSave(){if(!kao.loaded){T('本地数据库还没准备好，过几秒再试');return}try{await dbPut('apiSettings',{id:'ib_kao',v:kao.mine,updated:Date.now()})}catch(e){T('保存失败')}}
 function kaoIns(t){var ta=$$('cv-ta');if(!ta)return;var v=ta.value||'',s=ta.selectionStart,e=ta.selectionEnd;if(typeof s!=='number'){s=v.length;e=s}ta.value=v.slice(0,s)+t+v.slice(e);var p=s+t.length;try{ta.setSelectionRange(p,p)}catch(x){}try{ta.dispatchEvent(new Event('input',{bubbles:true}))}catch(x){}}
 function kaoSheet(){var sh=$$('sh-kao');if(sh)return sh;sh=document.createElement('div');sh.className='sheet';sh.id='sh-kao';
   sh.innerHTML='<div class="kao-hd"><span class="kao-tt">颜文字<i>Kaomoji</i></span><button class="kao-x" type="button" aria-label="关闭">✕</button></div><div class="kao-tabs" id="kao-tabs"></div><div class="kao-grid" id="kao-grid"></div><div class="kao-add"><input id="kao-in" placeholder="粘贴或输入颜文字，加进当前分组" maxlength="40" autocomplete="off"><button type="button" id="kao-put" class="ask-send" aria-label="加入"><svg viewBox="0 0 24 24"><path d="M4 12h13M13 6l6 6-6 6"/></svg></button></div>';
@@ -24329,8 +24349,8 @@ async function stkPickOpen(){await sLoad();stkPickSheet();stkPickPaint();openShe
 /* ── 表情包 ── */
 var S={on:false,cur:'',presets:[]},IMG={},sLoaded=false,PMAX=10,pg=null,edit=null;
 function pid(){return 'p'+Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
-async function sLoad(){if(sLoaded||!dbReady())return;try{var r=await dbGet('apiSettings','ib_stk');if(r&&typeof r==='object'){S.on=!!r.on;S.cur=String(r.cur||'');S.presets=Array.isArray(r.presets)?r.presets:[]}}catch(e){}sLoaded=true;sCardSync()}
-async function sSave(){try{await dbPut('apiSettings',{id:'ib_stk',on:S.on,cur:S.cur,presets:S.presets,updated:Date.now()})}catch(e){T('保存失败')}sCardSync()}
+async function sLoad(){if(sLoaded||!dbReady())return;try{var r=await dbGet('apiSettings','ib_stk');if(r&&typeof r==='object'){S.on=!!r.on;S.cur=String(r.cur||'');S.presets=Array.isArray(r.presets)?r.presets:[]}}catch(e){return}sLoaded=true;sCardSync()}/* 读库失败不标已读 */
+async function sSave(){if(!sLoaded){T('本地数据库还没准备好，过几秒再试');return}try{await dbPut('apiSettings',{id:'ib_stk',on:S.on,cur:S.cur,presets:S.presets,updated:Date.now()})}catch(e){T('保存失败')}sCardSync()}
 function curP(){for(var i=0;i<S.presets.length;i++)if(S.presets[i].id===S.cur)return S.presets[i];return null}
 function ok(it){return !!(it&&String(it.name||'').trim()&&String(it.use||'').trim())}
 function findItem(name){name=String(name||'').trim();var p=curP(),hit=null;if(p)hit=(p.items||[]).filter(function(x){return x.name===name})[0]||null;if(!hit)S.presets.forEach(function(q){if(!hit)hit=(q.items||[]).filter(function(x){return x.name===name})[0]||null});return hit}
