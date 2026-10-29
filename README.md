@@ -27,7 +27,7 @@
 </div>
 
 > [!TIP]
-> IB-M（Internal Beyond · Mobile）是一个单文件 PWA 个人 Agent 应用，可以同时接入多位自定义 Agent：和 TA 们聊天、通话、写信、一起听歌读书，也让 TA 们读写文件、生成文档、调用外部工具。
+> IB-M（Internal Beyond · Mobile）是一个单文件 PWA 个人 Agent 应用，可以同时接入多位自定义 Agent：与你的Agent聊天、通话、写信、一起听歌读书，也可以读写文件、生成文档、调用外部工具。
 > **源代码公开；所有数据只存在你自己的浏览器里，IB 没有后端服务器，对话只发往你自己配置的 AI 接口。** 支持完整的备份与恢复，能导入 ChatGPT / Claude 的官方聊天记录导出；与桌面端 [Internal Beyond](https://github.com/Sui-IB/InternalBeyond) 共用同一套备份格式，两端数据互通。
 
 <!-- 宣传图 / 截图：把图片拖进本仓库任意 Issue 的输入框，GitHub 会生成一条图片链接；替换下面的链接后删掉这两行注释符号即可。建议三张竖屏截图并排。
